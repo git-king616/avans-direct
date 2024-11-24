@@ -1,5 +1,5 @@
 
-const code = ```
+const code = `
 <style>
         .modal-header {
             background-color: var(--avans-red);
@@ -41,7 +41,7 @@ const code = ```
             </div>
         </div>
     </div>
-```
+`
 
     
    
