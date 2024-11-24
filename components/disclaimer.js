@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvansDirect</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --avans-red: #C6002E;
-        }
-        
-        .navbar {
-            background-color: var(--avans-red) !important;
-        }
-        
+
+const code = ```
+<style>
         .modal-header {
             background-color: var(--avans-red);
             color: white;
@@ -33,22 +20,6 @@
             backdrop-filter: blur(5px);
         }
     </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">AvansDirect</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mt-5">
-        <h1 class="text-center">Welcome to AvansDirect</h1>
-        <p class="text-center">Your unofficial source for Avans content</p>
-    </div>
-
-    <!-- Disclaimer Modal -->
     <div class="modal disclaimer-modal" id="disclaimerModal" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -70,11 +41,13 @@
             </div>
         </div>
     </div>
+```
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script>
+    
+   
         // Check if disclaimer should be shown
         window.onload = function() {
+            console.log(document)
             if (localStorage.getItem('hideDisclaimer') !== 'true') {
                 const modal = new bootstrap.Modal(document.getElementById('disclaimerModal'));
                 modal.show();
@@ -89,6 +62,4 @@
             const modal = bootstrap.Modal.getInstance(document.getElementById('disclaimerModal'));
             modal.hide();
         }
-    </script>
-</body>
-</html>
+    
