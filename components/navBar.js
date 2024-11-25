@@ -21,7 +21,7 @@ const navBarModalCode = `
 
 // Append modal code to the body
 var body = document.querySelector('body');
-body.prepend(navBarModalCode);
+body.innerHTML = navBarModalCode + body.innerHTML;
 
 // Check if disclaimer should be shown
 window.onload = function() {
