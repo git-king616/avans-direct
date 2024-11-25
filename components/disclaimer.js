@@ -47,7 +47,7 @@ const disclaimerModalCode = `
 `;
 
 // Append modal code to the body
-var body = document.document.querySelector('body');
+var body = document.querySelector('body');
 body.appendChild(disclaimerModalCode);
 
 // Check if disclaimer should be shown
