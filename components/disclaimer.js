@@ -48,7 +48,7 @@ const disclaimerModalCode = `
 
 // Append modal code to the body
 var body = document.querySelector('body');
-body.appendChild(disclaimerModalCode);
+body.innerHTML += disclaimerModalCode;
 
 // Check if disclaimer should be shown
 window.onload = function() {
