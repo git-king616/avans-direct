@@ -20,7 +20,8 @@ const navBarModalCode = `
 `;
 
 // Append modal code to the body
-document.body.insertAdjacentHTML('afterbegin', disclaimerModalCode);
+var body = document.document.querySelector('body');
+body.prepend(navBarModalCode);
 
 // Check if disclaimer should be shown
 window.onload = function() {
