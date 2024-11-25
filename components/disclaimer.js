@@ -1,7 +1,8 @@
 // Script to dynamically add the disclaimer modal and handle its behavior
 
 // Add the modal HTML and CSS to the body of the page
-const modalCode = `
+// this const has to be unique from all other components
+const disclaimerModalCode = `
 <style>
     .modal-header {
         background-color: var(--avans-red);
@@ -46,7 +47,7 @@ const modalCode = `
 `;
 
 // Append modal code to the body
-document.body.insertAdjacentHTML('beforeend', modalCode);
+document.body.insertAdjacentHTML('beforeend', disclaimerModalCode);
 
 // Check if disclaimer should be shown
 window.onload = function() {
