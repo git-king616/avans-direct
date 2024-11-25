@@ -5,18 +5,27 @@
 const navBarModalCode = `
 <style>
     .navbar {
-            background-color: var(--avans-red) !important;
-        }
+        background-color: var(--avans-red) !important;
+    }
+    .navbar-brand-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .navbar-brand-container a {
+        margin-right: 15px;
+    }
 </style>
 <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <div class="navbar-brand-container">
             <a class="navbar-brand fw-bold" href="https://avansdirect.eu">AvansDirect</a>
+            <a class="navbar-brand" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
         </div>
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
-        </div>
-    </nav>
+    </div>
+</nav>
 `;
 
 // Append modal code to the body
