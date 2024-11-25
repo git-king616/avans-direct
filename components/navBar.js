@@ -1,7 +1,8 @@
 // Script to dynamically add the disclaimer modal and handle its behavior
 
 // Add the modal HTML and CSS to the body of the page
-const modalCode = `
+// this const has to be unique from all other components
+const navBarModalCode = `
 <style>
     .navbar {
             background-color: var(--avans-red) !important;
@@ -10,13 +11,16 @@ const modalCode = `
 <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">AvansDirect</a>
+            <a class="navbar-brand fw-bold" href="https://avansdirect.eu">AvansDirect</a>
+        </div>
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
         </div>
     </nav>
 `;
 
 // Append modal code to the body
-document.body.insertAdjacentHTML('afterbegin', modalCode);
+document.body.insertAdjacentHTML('afterbegin', disclaimerModalCode);
 
 // Check if disclaimer should be shown
 window.onload = function() {
