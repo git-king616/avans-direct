@@ -7,23 +7,28 @@ const navBarModalCode = `
     .navbar {
         background-color: var(--avans-red) !important;
     }
-    .navbar-brand-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
     }
-    .navbar-brand-container a {
-        margin-right: 15px;
+    .brightspace-link {
+        font-size: 0.9rem;
+        color: white;
+    }
+    .brightspace-link:hover {
+        color: #ddd;
+        text-decoration: underline;
     }
 </style>
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <div class="navbar-brand-container">
-            <a class="navbar-brand fw-bold" href="https://avansdirect.eu">AvansDirect</a>
-            <a class="navbar-brand" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
-        </div>
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Main Logo -->
+        <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect</a>
+        
+        <!-- Small BrightSpace Link -->
+        <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
     </div>
 </nav>
 `;
