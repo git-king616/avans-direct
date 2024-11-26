@@ -208,10 +208,12 @@
         </div>
     </section>
     <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("survey").onclick = function () {
-            console.log("ya")
+            console.log("ya");
             location.href = "https://avansdirect.eu/pages/survey.html";
         };
+    });
     </script>
     <script src="components/analytics.js"></script>
     <script src="components/disclaimer.js"></script>
