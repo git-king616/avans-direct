@@ -13,7 +13,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/icon.png">
     <meta property="og:image" content="./assets/avans.png">
     <meta property="og:url" content="https://avansdirect.eu">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --avans-red: #C6002E;
@@ -161,7 +161,8 @@
                         <li>CAN EXPLAIN A MEME IN 3 WORDS OR LESS</li>
                         <li>ZERO BORING ENERGY ALLOWED</li>
                     </ul>
-                    <a href="/survey.html" class="btn btn-danger">SUBMIT APPLICATION</a>
+                    <button class="btn btn-danger" id="survey">SUBMIT APPLICATION</button>
+
                 </div>
             </div>
         </div>
@@ -207,10 +208,13 @@
             </div>
         </div>
     </section>
-
+    <script>
+        document.getElementById("survey").onclick = function () {
+            location.href = "https://avansdirect.eu/pages/survey.html";
+        };
+    </script>
     <script src="components/analytics.js"></script>
     <script src="components/disclaimer.js"></script>
     <script src="components/navBar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
