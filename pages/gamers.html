@@ -105,6 +105,34 @@
 </head>
 
 <body>
+    <style>
+        .navbar {
+            background-color: var(--avans-red) !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .brightspace-link {
+            font-size: 0.9rem;
+            color: white;
+        }
+        .brightspace-link:hover {
+            color: #ddd;
+            text-decoration: underline;
+        }
+    </style>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Main Logo -->
+            <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect (not official avans)</a>
+            
+            <!-- Small BrightSpace Link -->
+            <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
+        </div>
+    </nav>
     <canvas id="gameCanvas" width="800" height="300"></canvas>
     <div id="gameStats">
         <div id="score">Score: 0</div>
