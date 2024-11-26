@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avoid Brightspace - AvansDirect</title>
+    <link rel="icon" type="image/x-icon" href="../assets/icon.png">
+    <meta name="description" content="Try avoiding brightspace to survive.">
+    <meta property="og:description" content="Try avoiding brightspace to survive.">
+    <meta property="og:image" content="../assets/icon.png">
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        canvas {
+            border: 2px solid #333;
+            background-color: white;
+        }
+
+        #gameStats {
+            margin-top: 20px;
+            font-size: 24px;
+            display: flex;
+            gap: 20px;
+        }
+
+        #instructions {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #restartBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #e31d1a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #restartBtn:hover {
+            background-color: #b31815;
+        }
+
+        #nameInput {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        #nameInput input {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            text-transform: uppercase;
+            width: 100px;
+            text-align: center;
+            margin: 10px 0;
+            background: black;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 5px;
+        }
+
+        #nameInput button {
+            background: #00ff00;
+            color: black;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        #highScores {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="800" height="300"></canvas>
+    <div id="gameStats">
+        <div id="score">Score: 0</div>
+        <div id="lives">Lives: 3</div>
+    </div>
+    <div id="instructions">Press SPACE to jump</div>
+    <button id="restartBtn">Restart Game</button>
+    <div id="highScores">
+        <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+    </div>
+    <div id="nameInput">
+        <h2>NEW HIGH SCORE!</h2>
+        <p>Enter your name:</p>
+        <input type="text" maxlength="3" id="playerName">
+        <br>
+        <button onclick="submitHighScore()">Submit</button>
+    </div>
+
+    <script>
+        var userUUID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        if (localStorage.getItem('AvansDirect/avoidBrightspace/userUUID')) {
+            userUUID = localStorage.getItem('AvansDirect/avoidBrightspace/userUUID');
+        } else {
+            localStorage.setItem('AvansDirect/avoidBrightspace/userUUID', userUUID);
+        }
+        console.log(userUUID);
+        const client = mqtt.connect('wss://test.mosquitto.org:8081');
+        client.on('connect', () => {
+            const topic = "AvansDirect/avoidBrightspace";
+            client.subscribe(topic, (err) => {
+                if (!err) {
+                    client.on('message', (topic, message) => {
+                        const parsed = JSON.parse(message.toString());
+                        if (parsed.userUUID === userUUID) return;
+                        parsed.highScores.forEach(element => {
+                            if (element.identifier != undefined && highScores.findIndex(x => x.identifier === element.identifier) === -1) {
+                                highScores.push(element);
+                                console.log(element.identifier, true);
+
+                            } else {
+                                console.log(element.identifier, false);
+                            }
+                        });
+                        highScores.sort((a, b) => b.score - a.score);
+                        highScores = highScores.slice(0, 5);
+                        localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
+                        updateHighScoresDisplay();
+                        nameInput.style.display = 'none';
+                        restartBtn.style.display = 'block';
+                    });
+                }
+            });
+        })
+        function postMessageToMqtt(json) {
+            try {
+                const topic = "AvansDirect/avoidBrightspace";
+                json.userUUID = userUUID;
+                const message = JSON.stringify(json);
+                client.publish(topic, message, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const restartBtn = document.getElementById('restartBtn');
+        const nameInput = document.getElementById('nameInput');
+        const highScoresDiv = document.getElementById('highScores');
+
+        // High Scores System
+        let highScores = JSON.parse(localStorage.getItem('AvansDirect/avoidBrightspace/HighScores')) || [
+            { name: "AVS", score: 50 },
+            { name: "AVS", score: 25 },
+            { name: "AVS", score: 15 },
+            { name: "AVS", score: 10 },
+            { name: "AVS", score: 5 }
+        ];
+
+        function updateHighScoresDisplay() {
+            const scoresHtml = highScores
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 5)
+                .map((score, index) => `
+                    <div>${score.name} - ${score.score}</div>
+                `)
+                .join('');
+
+            highScoresDiv.innerHTML = `
+                <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+                ${scoresHtml}
+            `;
+        }
+
+        function checkHighScore(score) {
+            const lowestScore = Math.min(...highScores.map(x => x.score));
+            return score > lowestScore || highScores.length < 5;
+        }
+
+        function submitHighScore() {
+            const playerName = document.getElementById('playerName').value.toUpperCase();
+            if (playerName) {
+                highScores.push({ name: playerName, score: score, identifier: `${userUUID}${Date.now()}` });
+                highScores.sort((a, b) => b.score - a.score);
+                highScores = highScores.slice(0, 5);
+                localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
+                updateHighScoresDisplay();
+                nameInput.style.display = 'none';
+                restartBtn.style.display = 'block';
+                postMessageToMqtt({ highScores: highScores });
+            }
+        }
+
+        // Load images
+        const avansImg = new Image();
+        avansImg.src = 'https://avansdirect.eu/assets/icon.png';
+
+        const brightspaceImg = new Image();
+        brightspaceImg.src = 'https://i.imgur.com/WNQIz3Y.png';
+
+        // Game objects
+        const player = {
+            x: 50,
+            y: 199,
+            width: 50,
+            height: 50,
+            jumping: false,
+            velocity: 0,
+            gravity: 0.8,
+            jumpStrength: -16
+        };
+
+        const obstacle = {
+            x: canvas.width,
+            y: 200,
+            width: 40,
+            height: 50,
+            speed: 5,
+            baseSpeed: 5,
+            acceleration: 0.2
+        };
+
+        let score = 0;
+        let lives = 3;
+        let gameOver = false;
+        let animationId;
+        let gameTime = 0;
+
+        const deathMessages = [
+            "You didn't get your study points!",
+            "You forgot your exercises!",
+            "Your Brightspace didn't load in time!",
+            "Error 404: Assignment not found!",
+            "Brightspace ate your homework!",
+            "Your deadlines caught up with you!",
+            "Connection to Brightspace lost...",
+            "The server is not responding!"
+        ];
+
+        function update() {
+            if (gameOver) return;
+
+            gameTime++;
+
+            if (gameTime % 250 === 0) {
+                obstacle.speed += obstacle.acceleration;
+            }
+
+            if (player.jumping) {
+                player.velocity += player.gravity;
+                player.y += player.velocity;
+
+                if (player.y > 199) {
+                    player.y = 199;
+                    player.jumping = false;
+                    player.velocity = 0;
+                }
+            }
+
+            obstacle.x -= obstacle.speed;
+            if (obstacle.x < -obstacle.width) {
+                obstacle.x = canvas.width;
+                const heightMode = Math.floor(Math.random() * 4);
+                if (heightMode === 0) {
+                    obstacle.y = 200;
+                } else if (heightMode === 1) {
+                    obstacle.y = 125;
+                } else {
+                    obstacle.y = 175;
+                }
+                score++;
+                scoreElement.textContent = `Score: ${score}`;
+            }
+
+            if (checkCollision()) {
+                lives--;
+                livesElement.textContent = `Lives: ${lives}`;
+                obstacle.x = canvas.width;
+
+                if (lives <= 0) {
+                    gameOver = true;
+                    cancelAnimationFrame(animationId);
+                    postMessageToMqtt({ highScores: highScores });
+                    drawGameOver();
+
+                    if (checkHighScore(score)) {
+                        nameInput.style.display = 'block';
+                    } else {
+                        restartBtn.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.moveTo(0, 250);
+            ctx.lineTo(canvas.width, 250);
+            ctx.strokeStyle = '#333';
+            ctx.stroke();
+
+            ctx.drawImage(avansImg, player.x, player.y, player.width, player.height);
+            ctx.drawImage(brightspaceImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Courier New';
+            ctx.textAlign = 'right';
+            ctx.fillText(`Speed: ${obstacle.speed.toFixed(1)}x`, canvas.width - 10, 20);
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            if (!gameOver) {
+                animationId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function checkCollision() {
+            return player.x < obstacle.x + obstacle.width &&
+                player.x + player.width > obstacle.x &&
+                player.y < obstacle.y + obstacle.height &&
+                player.y + player.height > obstacle.y;
+        }
+
+        function drawGameOver() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = '32px Courier New';
+            ctx.textAlign = 'center';
+
+            const message = deathMessages[Math.floor(Math.random() * deathMessages.length)];
+            alert(message);
+
+            ctx.font = '24px Courier New';
+            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+        }
+
+        function resetGame() {
+            player.y = 200;
+            player.jumping = false;
+            player.velocity = 0;
+            obstacle.x = canvas.width;
+            obstacle.speed = obstacle.baseSpeed;
+            score = 0;
+            lives = 3;
+            gameTime = 0;
+            scoreElement.textContent = `Score: ${score}`;
+            livesElement.textContent = `Lives: ${lives}`;
+            gameOver = false;
+            restartBtn.style.display = 'none';
+            nameInput.style.display = 'none';
+            gameLoop();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !player.jumping) {
+                player.jumping = true;
+                player.velocity = player.jumpStrength;
+            }
+            if (e.code === 'KeyR' && gameOver) {
+                resetGame();
+            }
+        });
+
+        restartBtn.addEventListener('click', resetGame);
+
+        // Initialize high scores display
+        updateHighScoresDisplay();
+
+        // Start the game
+        gameLoop();
+    </script>
+    <script src="../components/analytics.js"></script>
+    <script src="../components/disclaimer.js"></script>
+    <script src="../components/navBar.js"></script>
+</body>
+
+</html>
