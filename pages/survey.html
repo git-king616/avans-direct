@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Ultieme Domme Avans Vragenlijst</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #000;
+            color: #00FF00;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #111;
+            border: 2px solid #00FF00;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px #00FF00;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #FF00FF;
+        }
+        p {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="range"], input[type="radio"] {
+            width: 100%;
+            background-color: #222;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+            padding: 5px;
+            font-family: inherit;
+        }
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            background: #333;
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #FF00FF;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #FF00FF;
+            cursor: pointer;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #FF00FF;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 2px solid #FF00FF;
+        }
+        .btn:hover {
+            background-color: #00FF00;
+            color: #111;
+            border-color: #00FF00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>De Ultieme Domme Vragenlijst</h1>
+        <p>Vul de vragen in en ontdek iets (of niets).</p>
+        
+        <div class="question">
+            <label for="bananen">Hoeveel bananen passen er in een vliegtuig?</label>
+            <select id="bananen">
+                <option>Minder dan 10</option>
+                <option>Tussen 10 en 1.000</option>
+                <option>Meer dan 1.000, maar minder dan een walvis</option>
+                <option>Geen idee, wie meet dit nou?</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="gevoel">Hoe voel je je op een schaal van "kikker" tot "koala"?</label>
+            <input id="gevoel" type="range" min="1" max="100" class="slider">
+        </div>
+
+        <div class="question">
+            <label for="stoepkrijt">Hoe vaak denk je per week aan stoepkrijt?</label>
+            <input id="stoepkrijt" type="range" min="0" max="100" class="slider">
+        </div>
+
+        <div class="question">
+            <label>Wat is je favoriete antwoord?</label>
+            <input type="radio" id="ja" name="antwoord"><label for="ja">Ja</label>
+            <input type="radio" id="nee" name="antwoord"><label for="nee">Nee</label>
+            <input type="radio" id="misschien" name="antwoord"><label for="misschien">Misschien</label>
+            <input type="radio" id="haring" name="antwoord"><label for="haring">Haring met slagroom</label>
+        </div>
+
+        <div class="question">
+            <label for="eenhoorns">Hoeveel onzichtbare eenhoorns zijn er nu in je kamer?</label>
+            <input id="eenhoorns" type="range" min="0" max="1000000" class="slider">
+        </div>
+
+        <div class="question">
+            <label for="kleur">Wat is je favoriete kleur van lucht die je niet kunt zien?</label>
+            <select id="kleur">
+                <option>Bliep</option>
+                <option>Bo
