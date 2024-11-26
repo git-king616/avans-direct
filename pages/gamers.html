@@ -14,7 +14,7 @@
         :root {
             --avans-red: #C6002E;
         }
-        
+
         body {
             display: flex;
             flex-direction: column;
@@ -137,22 +137,24 @@
             <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
         </div>
     </nav>
-    <canvas id="gameCanvas" width="800" height="300"></canvas>
-    <div id="gameStats">
-        <div id="score">Score: 0</div>
-        <div id="lives">Lives: 3</div>
-    </div>
-    <div id="instructions">Press SPACE to jump</div>
-    <button id="restartBtn">Restart Game</button>
-    <div id="highScores">
-        <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
-    </div>
-    <div id="nameInput">
-        <h2>NEW HIGH SCORE!</h2>
-        <p>Enter your name:</p>
-        <input type="text" maxlength="3" id="playerName">
-        <br>
-        <button onclick="submitHighScore()">Submit</button>
+    <div>
+        <canvas id="gameCanvas" width="800" height="300"></canvas>
+        <div id="gameStats">
+            <div id="score">Score: 0</div>
+            <div id="lives">Lives: 3</div>
+        </div>
+        <div id="instructions">Press SPACE to jump</div>
+        <button id="restartBtn">Restart Game</button>
+        <div id="highScores">
+            <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+        </div>
+        <div id="nameInput">
+            <h2>NEW HIGH SCORE!</h2>
+            <p>Enter your name:</p>
+            <input type="text" maxlength="3" id="playerName">
+            <br>
+            <button onclick="submitHighScore()">Submit</button>
+        </div>
     </div>
 
     <script>
