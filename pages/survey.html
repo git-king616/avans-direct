@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De Ultieme Domme Avans Vragenlijst</title>
+    <title>De Ultieme Domme Vragenlijst</title>
     <style>
         body {
             font-family: "Courier New", Courier, monospace;
@@ -35,7 +35,7 @@
             display: block;
             margin-bottom: 5px;
         }
-        select, input[type="range"], input[type="radio"] {
+        select, input[type="range"], input[type="radio"], input[type="text"] {
             width: 100%;
             background-color: #222;
             color: #00FF00;
@@ -80,9 +80,19 @@
             color: #111;
             border-color: #00FF00;
         }
+        .paddo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
+    <!-- Paddo afbeelding -->
+    <img src="/assets/paddo.png" alt="Paddo" class="paddo">
+
     <div class="container">
         <h1>De Ultieme Domme Vragenlijst</h1>
         <p>Vul de vragen in en ontdek iets (of niets).</p>
@@ -103,25 +113,64 @@
         </div>
 
         <div class="question">
-            <label for="stoepkrijt">Hoe vaak denk je per week aan stoepkrijt?</label>
-            <input id="stoepkrijt" type="range" min="0" max="100" class="slider">
+            <label for="koekjes">Hoeveel koekjes heb je vandaag gegeten?</label>
+            <input id="koekjes" type="text" placeholder="Vul een schandalig hoog getal in">
         </div>
 
         <div class="question">
-            <label>Wat is je favoriete antwoord?</label>
-            <input type="radio" id="ja" name="antwoord"><label for="ja">Ja</label>
-            <input type="radio" id="nee" name="antwoord"><label for="nee">Nee</label>
-            <input type="radio" id="misschien" name="antwoord"><label for="misschien">Misschien</label>
-            <input type="radio" id="haring" name="antwoord"><label for="haring">Haring met slagroom</label>
+            <label>Wat is je favoriete type stopcontact?</label>
+            <input type="radio" id="europees" name="stopcontact"><label for="europees">Europees</label>
+            <input type="radio" id="amerikaans" name="stopcontact"><label for="amerikaans">Amerikaans</label>
+            <input type="radio" id="mystiek" name="stopcontact"><label for="mystiek">Het mystieke stopcontact van Atlantis</label>
         </div>
 
         <div class="question">
-            <label for="eenhoorns">Hoeveel onzichtbare eenhoorns zijn er nu in je kamer?</label>
-            <input id="eenhoorns" type="range" min="0" max="1000000" class="slider">
+            <label for="onzichtbareEenhoorns">Hoeveel onzichtbare eenhoorns zijn er in je kamer?</label>
+            <input id="onzichtbareEenhoorns" type="range" min="0" max="1000000" class="slider">
         </div>
 
         <div class="question">
             <label for="kleur">Wat is je favoriete kleur van lucht die je niet kunt zien?</label>
             <select id="kleur">
                 <option>Bliep</option>
-                <option>Bo
+                <option>Boop</option>
+                <option>Glorp</option>
+                <option>Waf</option>
+                <option>Kleuren zijn een sociaal construct</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="dinosaurus">Als je een dinosaurus was, welke zou je zijn?</label>
+            <select id="dinosaurus">
+                <option>T-Rex met een hoed</option>
+                <option>Triceratops die altijd te laat komt</option>
+                <option>Een Brachiosaurus met een boomknuffel-verslaving</option>
+                <option>De mysterieuze "Gekke Platysaurus"</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="pizzaAnanas">Wat vind je van ananas op pizza?</label>
+            <select id="pizzaAnanas">
+                <option>Het is een schande!</option>
+                <option>Ik leef ervoor</option>
+                <option>Ananas? Wat is dat?</option>
+                <option>Pizza hoort zonder toppings te zijn</option>
+            </select>
+        </div>
+
+        <div class="question">
+            <label for="eindelozeTijd">Hoe zou je een oneindige tijd besteden?</label>
+            <input id="eindelozeTijd" type="text" placeholder="Schrijf iets belachelijks">
+        </div>
+
+        <div class="question">
+            <label for="konijnen">Hoeveel ninja-konijnen vechten er onder je bed?</label>
+            <input id="konijnen" type="range" min="0" max="9999" class="slider">
+        </div>
+
+        <a href="http://avansdirect.eu/archive/secrets/marki" class="btn">👉 Ontdek het geheim! 👈</a>
+    </div>
+</body>
+</html>
