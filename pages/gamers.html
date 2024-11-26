@@ -429,9 +429,6 @@
                 player.jumping = true;
                 player.velocity = player.jumpStrength;
             }
-            if (e.code === 'KeyR' && gameOver) {
-                resetGame();
-            }
         });
 
         restartBtn.addEventListener('click', resetGame);
