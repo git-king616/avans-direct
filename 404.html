@@ -32,12 +32,12 @@
     <script defer>
         var stats = localStorage.getItem('AvansDirect.StatisticsGatherer')
         var parsed = JSON.parse(stats)
-        const currentYear = new Date(Date.now()).getFullYear()
+        var currentYear = new Date(Date.now()).getFullYear()
         if (parsed[currentYear]['explorerOfThe404'] == undefined) {
             parsed[currentYear]['explorerOfThe404'] = 0
         }
         parsed[currentYear]['explorerOfThe404'] += 1;
-        localStorage.setItem('AvansDirect.StatisticsGatherer', JSON.parse(parsed))
+        localStorage.setItem('AvansDirect.StatisticsGatherer', JSON.stringify(parsed))
     </script>
     
     
