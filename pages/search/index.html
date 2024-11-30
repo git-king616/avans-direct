@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search 🔍 - AvansDirect</title>
+    <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
+    <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
+    <meta name="description"
+        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
+    <meta property="og:description"
+        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --avans-red: #C6002E;
+        }
+
+        body {
+            background: #000000;
+            background-size: cover;
+            font-family: 'Comic Sans MS', cursive;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 3px solid #ff6b6b;
+            padding: 15px 0;
+        }
+
+        .search-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 5px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .avansSearchBar {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #ff6b6b;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            color: black;
+        }
+
+        input.search-input {
+            flex-grow: 3;
+            width: 50%;
+            border-radius: 25px 0px 0px 25px;
+        }
+
+        button.search-input {
+            border-radius: 0px 25px 25px 0px;
+        }
+
+        .advanced-options {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 2px solid #4ecdc4;
+        }
+
+        .source-selector {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 8px;
+            width: 100%;
+            color: black;
+            font-weight: bold;
+        }
+
+        .filter-button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: 2px solid white;
+            border-radius: 15px;
+            padding: 8px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #4ecdc4;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .result-title {
+            color: #4ecdc4;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .result-title:hover {
+            color: #ff6b6b;
+        }
+
+        .result-url {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .result-description {
+            color: #ddd;
+            font-size: 1rem;
+        }
+
+        .result-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .source-badge {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            color: #000;
+        }
+
+        .stats {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .dancing-text {
+            animation: dance 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes dance {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-5px);
+            }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .toggle-advanced {
+            color: #4ecdc4;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: 1px solid #4ecdc4;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-advanced:hover {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-advanced i {
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-advanced.active i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <h3 class="dancing-text">AvansDirect Search 🔍</h3>
+                </div>
+                <div class="col-md-9">
+                    <div class="avansSearchBar">
+                        <input type="text" class="search-input"
+                            placeholder="you can search here, so we are better than brightspace" id="inputField">
+                        <button class="search-input" id="searchButton">🔍</button>
+                    </div>
+                    <div class="text-end">
+                        <a class="toggle-advanced" style="display: none;">
+                            Advanced Options <i>▼</i>
+                        </a>
+                    </div>
+                    <div class="advanced-options" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="mb-2">Source:</label>
+                                <select class="source-selector">
+                                    <option value="any">Any (I'm feeling lucky)</option>
+                                    <option value="internal">Internal (Trust me bro)</option>
+                                    <option value="external">External (Dangerous territory)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="mb-2">Sort by:</label>
+                                <select class="source-selector">
+                                    <option value="relevance">Relevance</option>
+                                    <option value="meme-potential">Meme Potential</option>
+                                    <option value="chaos-level">Chaos Level</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="mb-2">Time:</label>
+                                <select class="source-selector">
+                                    <option value="any">Any time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This week</option>
+                                    <option value="month">This month</option>
+                                    <option value="year">This year</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="filter-button w-100">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-container" id="searchContainer" style="display: none;">
+            <div class="stats">
+                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for "<span
+                    id="searchQuery">brightspace</span>" (0.420
+                seconds)
+            </div>
+
+            <div id="searchResultsContainer">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var avansDirectPages = [{
+            "url": "https://avansdirect.eu/",
+            "external": false,
+            "displayDate": "23-11-2024",
+            "title": "AVANSDIRECT HOMEPAGE🗿",
+            "subtext": "Blablabla",
+        }]
+        fetch('https://avansdirect.eu/data/index.json').then(res => res.json()) // Fetch the JSON data from the AvansDirect API
+            .then(data => {
+                console.log(data); // Log the data to the console
+                avansDirectPages = data; // Store the data in the avansDirectPages variable
+            }).catch(err => {
+                avansDirectPages = []; // If there's an error, set the avansDirectPages variable to an empty array
+            });
+    </script>
+    <script>
+        function stripIncorrectSearches(query) {
+            const articles = []
+            console.log(avansDirectPages)
+            avansDirectPages.forEach(element => {
+                var found = 0;
+                if (element.title?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                } else if (element.url?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                } else if (element.subtext?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                }
+                if (found > 0) {
+                    element.relevance = found;
+                    articles.push(element);
+                }
+            });
+            return articles;
+        }
+
+        function search(overwriteString) {
+            console.log('searching');
+            const searchContainer = document.getElementById('searchContainer');
+            const inputField = document.getElementById('inputField');
+            const searchQueryElement = document.getElementById('searchQuery');
+            const searchResultsContainer = document.getElementById('searchResultsContainer');
+            const amountOfResultsElement = document.getElementById('amountOfResults');
+            var searchQuery = inputField.value;
+            if (overwriteString) {
+                searchQuery = overwriteString;
+            }
+            searchContainer.style.display = 'block';
+            searchQueryElement.innerText = searchQuery;
+            console.log('searching for:', searchQuery);
+            const searchResults = stripIncorrectSearches(searchQuery);
+            console.log('search results:', searchResults);
+
+            searchResultsContainer.innerHTML = '';
+            amountOfResultsElement.innerText = searchResults.length;
+            searchResults.sort((a, b) => b.relevance - a.relevance);
+            searchResults.forEach(result => {
+                const resultCard = document.createElement('div');
+                resultCard.classList.add('result-card');
+                resultCard.innerHTML = `
+                    <a href="${result.url}" class="result-title">${result.title}</a>
+                    <div class="result-url">${result.url}</div>
+                    <div class="result-description">${result.subtext}</div>
+                    <div class="result-meta">
+                        <span class="source-badge">${result.external ? 'external' : 'internal'}</span>
+                        Last updated: ${result.displayDate}
+                    </div>
+                `;
+                searchResultsContainer.appendChild(resultCard);
+            });
+
+        }
+        window.addEventListener('load', function () {
+            document.querySelector('.toggle-advanced').addEventListener('click', function () {
+                const advancedOptions = document.querySelector('.advanced-options');
+                const isVisible = advancedOptions.style.display !== 'none';
+                advancedOptions.style.display = isVisible ? 'none' : 'block';
+                this.classList.toggle('active');
+            });
+            document.getElementById('searchButton').addEventListener('click', function () {
+                search();
+            });
+            document.getElementById('inputField').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    search();
+                }
+            });
+            setTimeout(() => {
+                search("");
+            }, 1000);
+        });
+    </script>
+    <script src="https://avansdirect.eu/components/disclaimer.js"></script>
+    <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
+    <script src="https://avansdirect.eu/components/navBar.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C9P58S1LKK');
+    </script>
+</body>
+
+</html>
