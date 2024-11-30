@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +23,17 @@
         }
 
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .page {
@@ -59,8 +68,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .stat {
@@ -127,10 +143,21 @@
         }
 
         @keyframes rainbow {
-            0% { color: #ff0000; }
-            33% { color: #00ff00; }
-            66% { color: #0000ff; }
-            100% { color: #ff0000; }
+            0% {
+                color: #ff0000;
+            }
+
+            33% {
+                color: #00ff00;
+            }
+
+            66% {
+                color: #0000ff;
+            }
+
+            100% {
+                color: #ff0000;
+            }
         }
 
         .navigation-buttons {
@@ -140,7 +167,8 @@
             z-index: 1000;
         }
 
-        .next-button, .reset-button {
+        .next-button,
+        .reset-button {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -153,7 +181,8 @@
             white-space: nowrap;
         }
 
-        .next-button:hover, .reset-button:hover {
+        .next-button:hover,
+        .reset-button:hover {
             transform: scale(1.1);
         }
 
@@ -174,8 +203,15 @@
         }
 
         @keyframes fall {
-            0% { transform: translateY(-20vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(-20vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         @media (max-height: 600px) {
@@ -190,13 +226,14 @@
             .summary-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .navigation-buttons {
                 bottom: 0.5rem;
                 right: 0.5rem;
             }
 
-            .next-button, .reset-button {
+            .next-button,
+            .reset-button {
                 padding: 0.8rem 1.5rem;
             }
         }
@@ -210,13 +247,14 @@
         }
     </style>
 </head>
+
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
 
     <div class="page active" id="page1">
         <div class="label">Welcome to Your</div>
-        <div class="stat">2024 Website Wrapped</div>
-        <div class="description">Let's see how you've been browsing this year...</div>
+        <div class="stat">2024 AvansDirect Wrapped</div>
+        <div class="description">Let's see how well you've been hating brightspace this year...</div>
     </div>
 
     <div class="page" id="page2">
@@ -224,9 +262,9 @@
     </div>
 
     <div class="page" id="page3">
-        <div class="label">Total Time Spent</div>
-        <div class="stat">127 hours</div>
-        <div class="description">That's equivalent to watching the Lord of the Rings trilogy 10.5 times!</div>
+        <div class="label">Total Time Spent on AvansDirect.eu</div>
+        <div class="stat">35 hours</div>
+        <div class="description">That's equivalent to watching the Lord of the Rings trilogy 3 times!</div>
     </div>
 
     <div class="page" id="page4">
@@ -246,7 +284,8 @@
     <div class="page" id="page7">
         <div class="label">Your Browser Type Is...</div>
         <div class="user-type">Nocturnal Ninja Narwhal</div>
-        <div class="description">You're the rare specimen who browses exclusively during full moons while eating ice cream. Only 0.001% of users share this trait!</div>
+        <div class="description">You're the rare specimen who browses exclusively during full moons while eating ice
+            cream. Only 0.001% of users share this trait!</div>
     </div>
 
     <div class="page" id="page8">
@@ -256,7 +295,8 @@
     <div class="page" id="page9">
         <div class="label">Rage Clicks</div>
         <div class="stat">847 times</div>
-        <div class="description">You've angrily clicked buttons 847 times! Maybe try some meditation? 🧘‍♀️</div>
+        <div class="description">You've angrily clicked buttons 847 times! We'd suggest to not open Brightspace as much,
+            that'll probably help.</div>
     </div>
 
     <div class="page" id="page10">
@@ -266,15 +306,40 @@
     <div class="page" id="page11">
         <div class="label">404 Pages Found</div>
         <div class="stat">13 pages</div>
-        <div class="description">You're quite the explorer! These pages don't exist, but you found them anyway! 🗺️</div>
+        <div class="description">You're quite the explorer! These pages don't exist, but you found them anyway! 🗺️
+        </div>
     </div>
 
     <div class="page" id="page12">
-        <div class="label">Your 2024 Website Wrapped Summary</div>
+        <div class="anticipation">Thinking about your battery life...</div>
+    </div>
+
+    <div class="page" id="page13">
+        <div class="label">Your average battery percentage</div>
+        <div class="stat">3.4%</div>
+        <div class="description">You're living life on the edge! 🔋
+        </div>
+    </div>
+
+    <div class="page" id="page14">
+        <div class="anticipation">Calculating your waiting time...</div>
+    </div>
+
+    <div class="page" id="page15">
+        <div class="label">Sleep tight</div>
+        <div class="stat">27.4 hours</div>
+        <div class="description">You've spent 27.4 hours waiting for Brightspace to load. That's a lot of time to catch
+            up
+            on sleep! 😴</div>
+    </div>
+    </div>
+
+    <div class="page" id="page16">
+        <div class="label">Your 2024 AvansDirect Wrapped Summary</div>
         <div class="summary-grid">
             <div class="summary-card">
                 <div class="label">Time Spent</div>
-                <div class="summary-stat">127 hours</div>
+                <div class="summary-stat">35 hours</div>
             </div>
             <div class="summary-card">
                 <div class="label">Scroll Distance</div>
@@ -292,6 +357,15 @@
                 <div class="label">Your Type</div>
                 <div class="summary-stat">Nocturnal Ninja Narwhal</div>
             </div>
+            <div class="summary-card">
+                <div class="label">Brightspace Loading time</div>
+                <div class="summary-stat">27.4 hours</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Battery Percentage</div>
+                <div class="summary-stat">3.4%</div>
+
+            </div>
         </div>
         <button class="reset-button" onclick="resetExperience()">Start Over</button>
     </div>
@@ -300,16 +374,18 @@
 
     <script>
         let currentPage = 1;
-        const totalPages = 12;
+        const totalPages = 16;
 
         function nextPage() {
             if (currentPage < totalPages) {
                 document.getElementById(`page${currentPage}`).classList.remove('active');
                 currentPage++;
                 document.getElementById(`page${currentPage}`).classList.add('active');
-                
+
                 if (currentPage === 7) {
                     createEmojiRain();
+                } else {
+                    document.getElementById('emojiRain').innerHTML = ''; // Clear emojis
                 }
 
                 // Hide next button on last page
@@ -330,8 +406,8 @@
             const container = document.getElementById('emojiRain');
             container.innerHTML = ''; // Clear previous emojis
             const emojis = ['🌙', '🦄', '🍦', '✨', '🌟', '🎮', '🎨'];
-            
-            for (let i = 0; i < 50; i++) {
+
+            for (let i = 0; i < 30; i++) {
                 const emoji = document.createElement('div');
                 emoji.className = 'emoji';
                 emoji.style.left = `${Math.random() * 100}vw`;
@@ -351,14 +427,16 @@
             }
         });
     </script>
+    <script src="https://avansdirect.eu/components/StatisticsGatherer.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-C9P58S1LKK');
+        gtag('config', 'G-C9P58S1LKK');
     </script>
 </body>
+
 </html>
