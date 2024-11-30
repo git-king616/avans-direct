@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BUas x AvansDirect Collab 🤝 - Partners In Crime</title>
+    <meta name="description" content="BUas 🤝 AvansDirect - United in the quest to make student life less boring">
+    <meta name="keywords" content="BUas, AvansDirect, Brightspace survivors, Breda students">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --avans-red: #ff6b00;
+            --buas-blue: #003e7e;
+        }
+        
+        /* Classic 2000s marquee effect */
+        @keyframes scroll {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+        
+        body {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAPUlEQVQYlWNgQAX/GRgY/uPCjHA2nM8Ik4QLwAX+U6qABVkjI5z1H4mGsxn+IxnxH1kdXDMhJ8I1EmIDAKXgGhGzvkNaAAAAAElFTkSuQmCC') repeat;
+            font-family: 'Impact', 'Comic Sans MS', sans-serif;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .retro-container {
+            background: rgba(0, 0, 0, 0.85);
+            border: 8px solid #ff9940;
+            border-style: ridge;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .retro-btn {
+            background: linear-gradient(to bottom, var(--avans-red), #d95700);
+            border: 3px outset #ff9940;
+            color: white;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 0 var(--buas-blue);
+        }
+
+        .retro-btn:hover {
+            background: linear-gradient(to bottom, var(--buas-blue), #002a56);
+            border-style: inset;
+            color: white;
+        }
+
+        .retro-card {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(0, 62, 126, 0.2));
+            border: 3px solid var(--avans-red);
+            border-style: ridge;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            height: 100%;
+        }
+
+        .spotlight {
+            background: linear-gradient(45deg, var(--buas-blue), var(--avans-red));
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid white;
+            border-style: ridge;
+        }
+
+        .collab-section {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVQYlWP8z8Dwn4GBgYEJymZkYGD4D2Mw/mdg+I/MZkTWCFGIpAAGmNA1/EcyAa4RphufE+GaibEBAEqmGhH7iVY5AAAAAElFTkSuQmCC') repeat;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 5px solid white;
+            border-style: ridge;
+        }
+
+        .partner-logo {
+            max-width: 120px;
+            transition: all 0.3s ease;
+            margin: 15px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            background: var(--buas-blue);
+            padding: 10px;
+            border: 2px solid var(--avans-red);
+            border-style: ridge;
+        }
+
+        .marquee span {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .under-construction {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            height: 100px;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Geocities-style visitor counter */
+        .visitor-counter {
+            background: #000;
+            border: 3px ridge #666;
+            display: inline-block;
+            padding: 5px 15px;
+            font-family: "Courier New", monospace;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="retro-container">
+            <div class="content-layer">
+                <div class="marquee mb-4">
+                    <span>🌟 WELCOME TO THE BUAS x AVANSDIRECT COLLABORATION PAGE 🌟 PROUDLY HOSTED ON AVANSDIRECT.EU 🌟 MADE WITH LOVE AND PURE CHAOS 🌟</span>
+                </div>
+
+                <h1 class="text-center display-3 mb-4">BUas 🤝 AvansDirect</h1>
+                
+                <div class="text-center mb-5">
+                    <p class="lead">TWO SCHOOLS, ONE MISSION: MAKING STUDENT LIFE LESS BORING</p>
+                    <div class="spotlight">
+                        <h3>WHY WE JOINED FORCES:</h3>
+                        <p>Hey AvansDirect fam! We're your neighbors from BUas (formerly known as NHTV for the OGs). 
+                        When we saw what you were doing with AvansDirect, we knew we had to collab. Why? Because 
+                        like you, we believe education doesn't have to be as dry as those mandatory reading materials 
+                        everyone pretends to read! 🎯</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="retro-card">
+                            <h3>WHO WE ARE 🎓</h3>
+                            <ul class="list-unstyled">
+                                <li>🎨 Creative Industries</li>
+                                <li>🌍 Tourism & Hospitality</li>
+                                <li>🚀 Logistics & Built Environment</li>
+                                <li>📊 Gaming & Data Science</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="retro-card">
+                            <h3>SHARED INTERESTS 🤝</h3>
+                            <ul class="list-unstyled">
+                                <li>🎮 Making education fun</li>
+                                <li>💀 Surviving Brightspace</li>
+                                <li>🌆 Owning Breda's vibe</li>
+                                <li>🎉 Creating chaos (responsibly)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="retro-card">
+                            <h3>COLLAB GOALS 🎯</h3>
+                            <ul class="list-unstyled">
+                                <li>🚀 Inter-school meme exchange</li>
+                                <li>🤝 Joint event shenanigans</li>
+                                <li>💡 Shared knowledge base</li>
+                                <li>🎮 Cross-campus activities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spotlight mt-5">
+                    <h2 class="text-center">🔥 BRIGHTSPACE SUPPORT GROUP 🔥</h2>
+                    <p class="text-center">Because misery loves company, and boy, do we have company!</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>COMMON STRUGGLES:</h4>
+                            <ul>
+                                <li>"Your session has expired" (It's been 2 minutes)</li>
+                                <li>The eternal loading circle of doom</li>
+                                <li>"File already exists" (It doesn't)</li>
+                                <li>Finding anything requires Indiana Jones level skills</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>SURVIVAL TIPS:</h4>
+                            <ul>
+                                <li>CTRL+S is your best friend</li>
+                                <li>Screenshots = proof of submission</li>
+                                <li>Always have a backup plan</li>
+                                <li>Prayer circle before each login</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collab-section text-center">
+                    <h2 class="mb-4">THE DREAM TEAM 🌟</h2>
+                    <div class="d-flex flex-wrap justify-content-center align-items-center">
+                        <img src="/api/placeholder/120/120" alt="AvansDirect Logo" class="partner-logo">
+                        <img src="/api/placeholder/120/120" alt="BUas Logo" class="partner-logo">
+                    </div>
+                    <div class="visitor-counter mt-4">
+                        Visitors: 42069
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <div class="row justify-content-center g-3">
+                        <div class="col-md-4">
+                            <a href="https://www.buas.nl/" class="btn retro-btn w-100" target="_blank">
+                                VISIT BUas 🏰
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" class="btn retro-btn w-100 blink">
+                                JOIN FORCES 💪
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <small>Best viewed in Netscape Navigator at 800x600 resolution</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script src="../../components/disclaimer.js"></script>
+    <script src="../../components/navBar.js"></script>
+    
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C9P58S1LKK');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
