@@ -21,6 +21,8 @@ const disclaimerModalCode = `
 
     .disclaimer-modal {
         backdrop-filter: blur(5px);
+        font-family: "Impact", "Comic Sans MS", cursive;
+        color: #000000;
     }
 </style>
 <div class="modal disclaimer-modal" id="disclaimerModal" data-bs-backdrop="static">
