@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Search 🔍 - AvansDirect</title>
+    <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
+    <meta name="description"
+        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
+    <meta property="og:description"
+        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
+    <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +17,7 @@
         }
 
         body {
-            background: #000000 url('/api/placeholder/1920/1080') center;
+            background: #000000;
             background-size: cover;
             font-family: 'Comic Sans MS', cursive;
             color: #fff;
@@ -61,7 +67,6 @@
             padding: 15px;
             margin-top: 15px;
             border: 2px solid #4ecdc4;
-            display: none;
         }
 
         .source-selector {
@@ -136,6 +141,7 @@
             border-radius: 10px;
             font-size: 0.8rem;
             margin-right: 10px;
+            color: #000;
         }
 
         .stats {
@@ -214,15 +220,16 @@
                 </div>
                 <div class="col-md-9">
                     <div class="avansSearchBar">
-                        <input type="text" class="search-input" value="">
+                        <input type="text" class="search-input"
+                            placeholder="you can search here, so we are better than brightspace" id="inputField">
                         <button class="search-input" id="searchButton">🔍</button>
                     </div>
                     <div class="text-end">
-                        <a class="toggle-advanced">
+                        <a class="toggle-advanced" style="display: none;">
                             Advanced Options <i>▼</i>
                         </a>
                     </div>
-                    <div class="advanced-options">
+                    <div class="advanced-options" style="display: none;">
                         <div class="row">
                             <div class="col-md-3">
                                 <label class="mb-2">Source:</label>
@@ -261,95 +268,111 @@
     </div>
 
     <div class="container">
-        <div class="search-container">
+        <div class="search-container" id="searchContainer" style="display: none;">
             <div class="stats">
-                <span class="blink">⚡</span> Found 42069 results for "brightspace" (0.420 seconds)
+                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for "<span
+                    id="searchQuery">brightspace</span>" (0.420
+                seconds)
             </div>
 
-            <div class="result-card">
-                <a href="#" class="result-title">🔥 The Ultimate Brightspace Survival Guide 2024</a>
-                <div class="result-url">/guides/brightspace-survival-guide</div>
-                <div class="result-description">
-                    Everything you need to know about surviving Brightspace, including secret shortcuts,
-                    how to find your assignments before they expire, and what to do when everything breaks
-                    (which is often). Updated with new bugs and features!
-                </div>
-                <div class="result-meta">
-                    <span class="source-badge">Internal</span>
-                    Last updated: 4 days ago | Views: 80085
-                </div>
-            </div>
-
-            <div class="result-card">
-                <a href="#" class="result-title">😱 Brightspace Horror Stories: A Collection</a>
-                <div class="result-url">/community/brightspace-stories</div>
-                <div class="result-description">
-                    User-submitted stories of their worst Brightspace experiences. Includes the legendary
-                    "The Assignment That Never Was" and "The Case of the Vanishing Deadline". Reader
-                    discretion is advised.
-                </div>
-                <div class="result-meta">
-                    <span class="source-badge">Internal</span>
-                    Last updated: 2 weeks ago | Comments: 1337
-                </div>
-            </div>
-
-            <div class="result-card">
-                <a href="#" class="result-title">💪 Brightspace Training Grounds</a>
-                <div class="result-url">/pages/gamers.html</div>
-                <div class="result-description">
-                    Train your Brightspace navigation skills in our simulator! Features include:
-                    "Find the Hidden Assignment", "Beat the Deadline", and "Guess Which Button
-                    Actually Submits". High scores tracked!
-                </div>
-                <div class="result-meta">
-                    <span class="source-badge">Internal</span>
-                    Last updated: Today | Players: 42069
-                </div>
-            </div>
-
-            <div class="result-card">
-                <a href="#" class="result-title">Official Brightspace Documentation 📚</a>
-                <div class="result-url">https://documentation.brightspace.com/guide</div>
-                <div class="result-description">
-                    The official guide that explains nothing you actually need to know. Includes
-                    500 pages of technical jargon and zero practical solutions. Good luck!
-                </div>
-                <div class="result-meta">
-                    <span class="source-badge">External</span>
-                    Source: Brightspace | Usefulness Rating: -9000
-                </div>
-            </div>
-
-            <div class="result-card">
-                <a href="#" class="result-title">🏆 Top 10 Brightspace Alternatives That We Can't Use</a>
-                <div class="result-url">/articles/brightspace-alternatives</div>
-                <div class="result-description">
-                    A comprehensive look at learning management systems that actually work but we'll
-                    never get to use. Including detailed comparisons and reasons why they're better.
-                </div>
-                <div class="result-meta">
-                    <span class="source-badge">Internal</span>
-                    Last updated: 1 week ago | Likes: 9999+
-                </div>
+            <div id="searchResultsContainer">
             </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        const avansDirectPages = fetch('https://avansdirect.eu/data/index.json').then(res => res.json());
+        var avansDirectPages = [{
+            "url": "https://avansdirect.eu/",
+            "external": false,
+            "displayDate": "23-11-2024",
+            "title": "AVANSDIRECT HOMEPAGE🗿",
+            "subtext": "Blablabla",
+        }]
+        fetch('https://avansdirect.eu/data/index.json').then(res => res.json()) // Fetch the JSON data from the AvansDirect API
+            .then(data => {
+                console.log(data); // Log the data to the console
+                avansDirectPages = data; // Store the data in the avansDirectPages variable
+            }).catch(err => {
+                avansDirectPages = []; // If there's an error, set the avansDirectPages variable to an empty array
+            });
     </script>
     <script>
-        document.onload = function () {
+        function stripIncorrectSearches(query) {
+            const articles = []
+            console.log(avansDirectPages)
+            avansDirectPages.forEach(element => {
+                var found = 0;
+                if (element.title?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                } else if (element.url?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                } else if (element.subtext?.toLowerCase().includes(query.toLowerCase())) {
+                    found++;
+                }
+                if (found > 0) {
+                    element.relevance = found;
+                    articles.push(element);
+                }
+            });
+            return articles;
+        }
+
+        function search(overwriteString) {
+            console.log('searching');
+            const searchContainer = document.getElementById('searchContainer');
+            const inputField = document.getElementById('inputField');
+            const searchQueryElement = document.getElementById('searchQuery');
+            const searchResultsContainer = document.getElementById('searchResultsContainer');
+            const amountOfResultsElement = document.getElementById('amountOfResults');
+            var searchQuery = inputField.value;
+            if (overwriteString) {
+                searchQuery = overwriteString;
+            }
+            searchContainer.style.display = 'block';
+            searchQueryElement.innerText = searchQuery;
+            console.log('searching for:', searchQuery);
+            const searchResults = stripIncorrectSearches(searchQuery);
+            console.log('search results:', searchResults);
+
+            searchResultsContainer.innerHTML = '';
+            amountOfResultsElement.innerText = searchResults.length;
+            searchResults.sort((a, b) => b.relevance - a.relevance);
+            searchResults.forEach(result => {
+                const resultCard = document.createElement('div');
+                resultCard.classList.add('result-card');
+                resultCard.innerHTML = `
+                    <a href="${result.url}" class="result-title">${result.title}</a>
+                    <div class="result-url">${result.url}</div>
+                    <div class="result-description">${result.subtext}</div>
+                    <div class="result-meta">
+                        <span class="source-badge">${result.external ? 'external' : 'internal'}</span>
+                        Last updated: ${result.displayDate}
+                    </div>
+                `;
+                searchResultsContainer.appendChild(resultCard);
+            });
+
+        }
+        window.addEventListener('load', function () {
             document.querySelector('.toggle-advanced').addEventListener('click', function () {
-                console.log('clicked');
                 const advancedOptions = document.querySelector('.advanced-options');
                 const isVisible = advancedOptions.style.display !== 'none';
                 advancedOptions.style.display = isVisible ? 'none' : 'block';
                 this.classList.toggle('active');
             });
-        };
+            document.getElementById('searchButton').addEventListener('click', function () {
+                search();
+            });
+            document.getElementById('inputField').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    search();
+                }
+            });
+            setTimeout(() => {
+                search("");
+            }, 1000);
+        });
     </script>
     <script src="https://avansdirect.eu/components/disclaimer.js"></script>
     <script src="https://avansdirect.eu/components/statsGatherer.js"></script>

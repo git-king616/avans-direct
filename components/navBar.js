@@ -26,7 +26,7 @@ const navBarModalCode = `
     <div class="container d-flex justify-content-between align-items-center">
         <!-- Main Logo -->
         <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect</a>
-        <a class="brightspace-link ms-auto" href="https://avansdirect.eu/pages/search">Search</a>
+        <a class="brightspace-link ms-auto" href="https://avansdirect.eu/pages/search">Search🔎</a>
         <!-- Small BrightSpace Link -->
         <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
     </div>
