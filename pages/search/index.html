@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search 🔍 - AvansDirect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --avans-red: #C6002E;
+        }
+
+        body {
+            background: #000000 url('/api/placeholder/1920/1080') center;
+            background-size: cover;
+            font-family: 'Comic Sans MS', cursive;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 3px solid #ff6b6b;
+            padding: 15px 0;
+        }
+
+        .search-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 5px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .avansSearchBar {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #ff6b6b;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            color: black;
+        }
+
+        input.search-input {
+            flex-grow: 3;
+            width: 50%;
+            border-radius: 25px 0px 0px 25px;
+        }
+
+        button.search-input {
+            border-radius: 0px 25px 25px 0px;
+        }
+
+        .advanced-options {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 2px solid #4ecdc4;
+            display: none;
+        }
+
+        .source-selector {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 8px;
+            width: 100%;
+            color: black;
+            font-weight: bold;
+        }
+
+        .filter-button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: 2px solid white;
+            border-radius: 15px;
+            padding: 8px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #4ecdc4;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .result-title {
+            color: #4ecdc4;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .result-title:hover {
+            color: #ff6b6b;
+        }
+
+        .result-url {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .result-description {
+            color: #ddd;
+            font-size: 1rem;
+        }
+
+        .result-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .source-badge {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .stats {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .dancing-text {
+            animation: dance 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes dance {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-5px);
+            }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .toggle-advanced {
+            color: #4ecdc4;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: 1px solid #4ecdc4;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-advanced:hover {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-advanced i {
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-advanced.active i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <h3 class="dancing-text">AvansDirect Search 🔍</h3>
+                </div>
+                <div class="col-md-9">
+                    <div class="avansSearchBar">
+                        <input type="text" class="search-input" value="">
+                        <button class="search-input" id="searchButton">🔍</button>
+                    </div>
+                    <div class="text-end">
+                        <a class="toggle-advanced">
+                            Advanced Options <i>▼</i>
+                        </a>
+                    </div>
+                    <div class="advanced-options">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="mb-2">Source:</label>
+                                <select class="source-selector">
+                                    <option value="any">Any (I'm feeling lucky)</option>
+                                    <option value="internal">Internal (Trust me bro)</option>
+                                    <option value="external">External (Dangerous territory)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="mb-2">Sort by:</label>
+                                <select class="source-selector">
+                                    <option value="relevance">Relevance</option>
+                                    <option value="meme-potential">Meme Potential</option>
+                                    <option value="chaos-level">Chaos Level</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="mb-2">Time:</label>
+                                <select class="source-selector">
+                                    <option value="any">Any time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This week</option>
+                                    <option value="month">This month</option>
+                                    <option value="year">This year</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button class="filter-button w-100">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-container">
+            <div class="stats">
+                <span class="blink">⚡</span> Found 42069 results for "brightspace" (0.420 seconds)
+            </div>
+
+            <div class="result-card">
+                <a href="#" class="result-title">🔥 The Ultimate Brightspace Survival Guide 2024</a>
+                <div class="result-url">/guides/brightspace-survival-guide</div>
+                <div class="result-description">
+                    Everything you need to know about surviving Brightspace, including secret shortcuts,
+                    how to find your assignments before they expire, and what to do when everything breaks
+                    (which is often). Updated with new bugs and features!
+                </div>
+                <div class="result-meta">
+                    <span class="source-badge">Internal</span>
+                    Last updated: 4 days ago | Views: 80085
+                </div>
+            </div>
+
+            <div class="result-card">
+                <a href="#" class="result-title">😱 Brightspace Horror Stories: A Collection</a>
+                <div class="result-url">/community/brightspace-stories</div>
+                <div class="result-description">
+                    User-submitted stories of their worst Brightspace experiences. Includes the legendary
+                    "The Assignment That Never Was" and "The Case of the Vanishing Deadline". Reader
+                    discretion is advised.
+                </div>
+                <div class="result-meta">
+                    <span class="source-badge">Internal</span>
+                    Last updated: 2 weeks ago | Comments: 1337
+                </div>
+            </div>
+
+            <div class="result-card">
+                <a href="#" class="result-title">💪 Brightspace Training Grounds</a>
+                <div class="result-url">/pages/gamers.html</div>
+                <div class="result-description">
+                    Train your Brightspace navigation skills in our simulator! Features include:
+                    "Find the Hidden Assignment", "Beat the Deadline", and "Guess Which Button
+                    Actually Submits". High scores tracked!
+                </div>
+                <div class="result-meta">
+                    <span class="source-badge">Internal</span>
+                    Last updated: Today | Players: 42069
+                </div>
+            </div>
+
+            <div class="result-card">
+                <a href="#" class="result-title">Official Brightspace Documentation 📚</a>
+                <div class="result-url">https://documentation.brightspace.com/guide</div>
+                <div class="result-description">
+                    The official guide that explains nothing you actually need to know. Includes
+                    500 pages of technical jargon and zero practical solutions. Good luck!
+                </div>
+                <div class="result-meta">
+                    <span class="source-badge">External</span>
+                    Source: Brightspace | Usefulness Rating: -9000
+                </div>
+            </div>
+
+            <div class="result-card">
+                <a href="#" class="result-title">🏆 Top 10 Brightspace Alternatives That We Can't Use</a>
+                <div class="result-url">/articles/brightspace-alternatives</div>
+                <div class="result-description">
+                    A comprehensive look at learning management systems that actually work but we'll
+                    never get to use. Including detailed comparisons and reasons why they're better.
+                </div>
+                <div class="result-meta">
+                    <span class="source-badge">Internal</span>
+                    Last updated: 1 week ago | Likes: 9999+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const avansDirectPages = fetch('https://avansdirect.eu/data/index.json').then(res => res.json());
+    </script>
+    <script>
+        document.onload = function () {
+            document.querySelector('.toggle-advanced').addEventListener('click', function () {
+                console.log('clicked');
+                const advancedOptions = document.querySelector('.advanced-options');
+                const isVisible = advancedOptions.style.display !== 'none';
+                advancedOptions.style.display = isVisible ? 'none' : 'block';
+                this.classList.toggle('active');
+            });
+        };
+    </script>
+    <script src="https://avansdirect.eu/components/disclaimer.js"></script>
+    <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
+    <script src="https://avansdirect.eu/components/navBar.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C9P58S1LKK');
+    </script>
+</body>
+
+</html>
