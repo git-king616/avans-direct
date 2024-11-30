@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapped - AvansDirect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.8s ease, opacity 0.8s ease;
+            padding: 2rem;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anticipation {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .stat {
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            animation: countUp 2s ease-out;
+        }
+
+        .label {
+            font-size: 1.5rem;
+            text-align: center;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            text-align: center;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+
+        .user-type {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 2rem 0;
+            animation: rainbow 3s linear infinite;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .summary-stat {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            33% { color: #00ff00; }
+            66% { color: #0000ff; }
+            100% { color: #ff0000; }
+        }
+
+        .next-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .reset-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .next-button:hover, .reset-button:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .stat { font-size: 2.5rem; }
+            .anticipation { font-size: 2rem; }
+            .user-type { font-size: 2rem; }
+            .label { font-size: 1.2rem; }
+            .description { font-size: 1rem; }
+            .summary-stat { font-size: 1.5rem; }
+        }
+
+        .emoji-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .emoji {
+            position: absolute;
+            animation: fall 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="emoji-rain" id="emojiRain"></div>
+
+    <div class="page active" id="page1">
+        <div class="label">Welcome to Your</div>
+        <div class="stat">2024 Website Wrapped</div>
+        <div class="description">Let's see how you've been browsing this year...</div>
+    </div>
+
+    <div class="page" id="page2">
+        <div class="anticipation">Analyzing your clicks...</div>
+    </div>
+
+    <div class="page" id="page3">
+        <div class="label">Total Time Spent</div>
+        <div class="stat">127 hours</div>
+        <div class="description">That's equivalent to watching the Lord of the Rings trilogy 10.5 times!</div>
+    </div>
+
+    <div class="page" id="page4">
+        <div class="anticipation">Calculating your scrolling habits...</div>
+    </div>
+
+    <div class="page" id="page5">
+        <div class="label">Your Scroll Marathon</div>
+        <div class="stat">12.7 km</div>
+        <div class="description">Your thumb ran a half marathon! 🏃‍♂️</div>
+    </div>
+
+    <div class="page" id="page6">
+        <div class="anticipation">Discovering your browsing personality...</div>
+    </div>
+
+    <div class="page" id="page7">
+        <div class="label">Your Browser Type Is...</div>
+        <div class="user-type">Nocturnal Ninja Narwhal</div>
+        <div class="description">You're the rare specimen who browses exclusively during full moons while eating ice cream. Only 0.001% of users share this trait!</div>
+    </div>
+
+    <div class="page" id="page8">
+        <div class="anticipation">Analyzing your rage clicks...</div>
+    </div>
+
+    <div class="page" id="page9">
+        <div class="label">Rage Clicks</div>
+        <div class="stat">847 times</div>
+        <div class="description">You've angrily clicked buttons 847 times! Maybe try some meditation? 🧘‍♀️</div>
+    </div>
+
+    <div class="page" id="page10">
+        <div class="anticipation">Investigating your 404 adventures...</div>
+    </div>
+
+    <div class="page" id="page11">
+        <div class="label">404 Pages Found</div>
+        <div class="stat">13 pages</div>
+        <div class="description">You're quite the explorer! These pages don't exist, but you found them anyway! 🗺️</div>
+    </div>
+
+    <div class="page" id="page12">
+        <div class="label">Your 2024 Website Wrapped Summary</div>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Time Spent</div>
+                <div class="summary-stat">127 hours</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Scroll Distance</div>
+                <div class="summary-stat">12.7 km</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Rage Clicks</div>
+                <div class="summary-stat">847</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">404 Pages</div>
+                <div class="summary-stat">13</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Your Type</div>
+                <div class="summary-stat">Nocturnal Ninja Narwhal</div>
+            </div>
+        </div>
+        <button class="reset-button" onclick="resetExperience()">Start Over</button>
+    </div>
+
+    <button class="next-button" id="nextButton" onclick="nextPage()">Next →</button>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 12;
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+                
+                if (currentPage === 7) {
+                    createEmojiRain();
+                }
+
+                // Hide next button on last page
+                if (currentPage === totalPages) {
+                    document.getElementById('nextButton').style.display = 'none';
+                }
+            }
+        }
+
+        function resetExperience() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage = 1;
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('nextButton').style.display = 'block';
+        }
+
+        function createEmojiRain() {
+            const container = document.getElementById('emojiRain');
+            container.innerHTML = ''; // Clear previous emojis
+            const emojis = ['🌙', '🦄', '🍦', '✨', '🌟', '🎮', '🎨'];
+            
+            for (let i = 0; i < 50; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.style.left = `${Math.random() * 100}vw`;
+                emoji.style.animationDelay = `${Math.random() * 3}s`;
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.fontSize = `${Math.random() * 20 + 20}px`;
+                container.appendChild(emoji);
+            }
+        }
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') {
+                if (currentPage < totalPages) {
+                    nextPage();
+                }
+            }
+        });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C9P58S1LKK');
+    </script>
+</body>
+</html>
