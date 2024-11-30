@@ -2,7 +2,7 @@ var counted = false;
 if (sessionStorage.getItem("visitCounted")) {
     counted = true;
 } else {
-    sessionStorage.setItem("visitCounted")
+    sessionStorage.setItem("visitCounted", "true")
 }
 
 const currentYear = new Date(Date.now()).getFullYear()
