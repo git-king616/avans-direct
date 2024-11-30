@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HR x AvansDirect - Partners in Time 🤝</title>
+    <meta name="description" content="Hogeschool Rotterdam 🤝 AvansDirect - United against Brightspace">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --avans-red: #e6007e;
+            --hr-dark: #444444;
+        }
+        
+        body {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--avans-red) 0px,
+                var(--avans-red) 10px,
+                #ff1493 10px,
+                #ff1493 20px
+            );
+            font-family: "Comic Sans MS", cursive;
+            color: white;
+        }
+
+        .y2k-container {
+            background: rgba(0, 0, 0, 0.85);
+            border: 8px double #ff69b4;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 0 20px #ff69b4;
+        }
+
+        .marquee {
+            background: var(--avans-red);
+            padding: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee span {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .guestbook {
+            background: #fff;
+            color: var(--hr-dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .hit-counter {
+            font-family: "Courier New", monospace;
+            background: #000;
+            padding: 5px 10px;
+            border: 3px solid #ff69b4;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .glitter-text {
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: sparkle 2s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .hr-button {
+            background: var(--avans-red);
+            border: 3px solid #fff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .hr-button:hover {
+            transform: scale(1.1) rotate(-3deg);
+            background: #ff1493;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="marquee">
+        <span>🌟 WELCOME TO THE OFFICIAL HOGESCHOOL ROTTERDAM x AVANSDIRECT COLLAB PAGE 🌟 UNDER CONSTRUCTION FOREVER 🚧</span>
+    </div>
+
+    <div class="y2k-container text-center">
+        <h1 class="display-4 mb-4 blink">⭐ HOGESCHOOL ROTTERDAM ⭐</h1>
+        <h2 class="glitter-text">YOUR SECOND CHOICE AFTER TU DELFT... AND PROUD OF IT! 💖</h2>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h3>WHY WE'RE BESTIES WITH AVANSDIRECT 🤝</h3>
+                <ul class="list-unstyled">
+                    <li>🎯 MUTUAL HATRED OF BRIGHTSPACE'S "UNIQUE" INTERFACE</li>
+                    <li>💫 BOTH STUCK IN EDUCATIONAL PURGATORY</li>
+                    <li>🌈 SHARED LOVE FOR MAKING EDUCATION "FUN" (THEY SAID IT WOULD BE FUN)</li>
+                    <li>🎮 BOTH HAVE MORE GAMERS THAN ACTUAL STUDENTS</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="guestbook mt-4">
+            <h3 class="text-dark">📝 SIGN OUR GUESTBOOK!</h3>
+            <p class="text-muted">(JK this doesn't work, just like our school's WiFi)</p>
+        </div>
+
+        <div class="mt-4">
+            <h3>🏫 PROUD FEATURES OF HR:</h3>
+            <ul class="list-unstyled">
+                <li>📍 LOCATED NEXT TO IKEA (OUR MAIN SELLING POINT)</li>
+                <li>🚊 TRAM DELAYS INCLUDED IN CURRICULUM</li>
+                <li>🏢 MORE BUILDINGS THAN NECESSARY</li>
+                <li>☕ COFFEE MACHINES WORK 60% OF THE TIME, EVERY TIME</li>
+            </ul>
+        </div>
+
+        <div class="hit-counter">
+            VISITORS: 80085
+        </div>
+
+        <div class="mt-4">
+            <a href="/" class="btn hr-button">BACK TO AVANSDIRECT</a>
+            <a href="https://www.hogeschoolrotterdam.nl" class="btn hr-button">VISIT HR (IF YOU DARE)</a>
+        </div>
+
+        <div class="mt-5">
+            <p class="small">© 2024 | Made with 💝 and outdated HTML practices</p>
+            <p class="small blink">⚠️ NO STUDENTS WERE HARMED IN THE MAKING OF THIS PAGE ⚠️</p>
+        </div>
+    </div>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script src="../../components/disclaimer.js"></script>
+    <script src="../../components/navBar.js"></script>
+    
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C9P58S1LKK');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
