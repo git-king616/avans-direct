@@ -23,5 +23,5 @@ if (!stats) {
 if (!counted) {
     parsed[currentYear].sessions += 1
 }
-localStorage.setItem('AvansDirect.StatisticsGatherer', JSON.parse(parsed))
+localStorage.setItem('AvansDirect.StatisticsGatherer', JSON.stringify(parsed))
         
