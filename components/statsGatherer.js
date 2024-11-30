@@ -5,7 +5,7 @@ if (sessionStorage.getItem("visitCounted")) {
     sessionStorage.setItem("visitCounted", "true")
 }
 
-const currentYear = new Date(Date.now()).getFullYear()
+var currentYear = new Date(Date.now()).getFullYear()
 const defaultLocalStorageData = {}
 if (defaultLocalStorageData[currentYear] == undefined) {
     defaultLocalStorageData[currentYear] = {
