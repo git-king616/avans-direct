@@ -277,8 +277,8 @@
     <div class="container">
         <div class="search-container" id="searchContainer" style="display: none;">
             <div class="stats">
-                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for "<span
-                    id="searchQuery">brightspace</span>" on AvansDirect (0.420
+                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for '<span
+                    id="searchQuery">brightspace</span>' on AvansDirect (0.420
                 seconds)
             </div>
 
@@ -328,10 +328,12 @@
                 var found = 0;
                 var foundIgnored = 0;
                 query = query.trim();
-                var splittedQuery = query.split(" ");
+                var splittedQuery = query.match(/(?:[^\s"]+|"[^"]*")+/g);
                 splittedQuery.push(query);
                 splittedQuery.forEach(word => {
-                    maxRelevence += 1;
+                    if (word.startsWith('"') && word.endsWith('"')) {
+                        word = word.substring(1, word.length - 1);
+                    }
                     var inverted = false;
                     if (word.startsWith("!")) {
                         inverted = true;
@@ -350,6 +352,9 @@
                     }
                 });
                 found -= foundIgnored
+                if (found > maxRelevence) {
+                    maxRelevence = found;
+                }
                 if (found > 0) {
                     element.relevanceScrore = Math.floor(found / maxRelevence * 500);
                     articles.push(element);
