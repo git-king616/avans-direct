@@ -331,13 +331,13 @@
                 var splittedQuery = query.match(/(?:[^\s"]+|"[^"]*")+/g);
                 splittedQuery.push(query);
                 splittedQuery.forEach(word => {
-                    if (word.startsWith('"') && word.endsWith('"')) {
-                        word = word.substring(1, word.length - 1);
-                    }
                     var inverted = false;
                     if (word.startsWith("!")) {
                         inverted = true;
                         word = word.substring(1);
+                    }
+                    if (word.startsWith('"') && word.endsWith('"')) {
+                        word = word.substring(1, word.length - 1);
                     }
                     if (element.title?.toLowerCase().includes(word.toLowerCase())) {
                         inverted ? foundIgnored += 1 : found += 1;
