@@ -329,6 +329,7 @@
                 var foundIgnored = 0;
                 query = query.trim();
                 var splittedQuery = query.split(" ");
+                splittedQuery.push(query);
                 splittedQuery.forEach(word => {
                     maxRelevence += 1;
                     var inverted = false;
