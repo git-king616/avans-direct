@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Search 🔍 - AvansDirect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
     <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
     <meta name="description"
         content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
     <meta property="og:description"
         content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --avans-red: #C6002E;
@@ -271,7 +271,7 @@
         <div class="search-container" id="searchContainer" style="display: none;">
             <div class="stats">
                 <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for "<span
-                    id="searchQuery">brightspace</span>" (0.420
+                    id="searchQuery">brightspace</span>" on AvansDirect (0.420
                 seconds)
             </div>
 
@@ -302,16 +302,38 @@
             const articles = []
             console.log(avansDirectPages)
             avansDirectPages.forEach(element => {
-                var found = 0;
-                if (element.title?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
-                } else if (element.url?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
-                } else if (element.subtext?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
+                if (query === "") {
+                    element.relevanceScrore = 100;
+                    articles.push(element);
+                    return;
                 }
+                var maxRelevence = 0;
+                var found = 0;
+                var foundIgnored = 0;
+                query = query.trim();
+                var splittedQuery = query.split(" ");
+                splittedQuery.forEach(word => {
+                    maxRelevence += 1;
+                    var inverted = false;
+                    if (word.startsWith("!")) {
+                        inverted = true;
+                        word = word.substring(1);
+                    }
+                    if (element.title?.toLowerCase().includes(word.toLowerCase())) {
+                        inverted ? foundIgnored += 1 : found += 1;
+                    } else if (element.url?.toLowerCase().includes(word.toLowerCase())) {
+                        inverted ? foundIgnored += 1 : found += 1;
+                    } else if (element.subtext?.toLowerCase().includes(word.toLowerCase())) {
+                        inverted ? foundIgnored += 1 : found += 1;
+                    } else if (element.displayDate?.toLowerCase().includes(word.toLowerCase())) {
+                        inverted ? foundIgnored += 1 : found += 1;
+                    } else if (inverted) {
+                        found += 1;
+                    }
+                });
+                found -= foundIgnored
                 if (found > 0) {
-                    element.relevance = found;
+                    element.relevanceScrore = Math.floor(found / maxRelevence * 500);
                     articles.push(element);
                 }
             });
@@ -328,26 +350,26 @@
             var searchQuery = inputField.value;
             if (overwriteString) {
                 searchQuery = overwriteString;
+            } else {
+                sessionStorage.setItem('AvansDirectSearch/searchQuery', searchQuery);
             }
             searchContainer.style.display = 'block';
             searchQueryElement.innerText = searchQuery;
-            console.log('searching for:', searchQuery);
             const searchResults = stripIncorrectSearches(searchQuery);
-            console.log('search results:', searchResults);
 
             searchResultsContainer.innerHTML = '';
             amountOfResultsElement.innerText = searchResults.length;
-            searchResults.sort((a, b) => b.relevance - a.relevance);
+            searchResults.sort((a, b) => b.relevanceScrore - a.relevanceScrore);
             searchResults.forEach(result => {
                 const resultCard = document.createElement('div');
                 resultCard.classList.add('result-card');
                 resultCard.innerHTML = `
-                    <a href="${result.url}" class="result-title">${result.title}</a>
+                    <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
                     <div class="result-url">${result.url}</div>
                     <div class="result-description">${result.subtext}</div>
                     <div class="result-meta">
                         <span class="source-badge">${result.external ? 'external' : 'internal'}</span>
-                        Last updated: ${result.displayDate}
+                        Last updated: ${result.displayDate} - Relevance Score: ${result.relevanceScrore}
                     </div>
                 `;
                 searchResultsContainer.appendChild(resultCard);
@@ -370,7 +392,13 @@
                 }
             });
             setTimeout(() => {
-                search("");
+                const savedQuery = sessionStorage.getItem('AvansDirectSearch/searchQuery')
+                if (savedQuery) {
+                    search(savedQuery);
+                    document.getElementById('inputField').value = savedQuery;
+                } else {
+                    search("");
+                }
             }, 1000);
         });
     </script>
