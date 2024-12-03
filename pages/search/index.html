@@ -1,495 +1,467 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Search 🔍 - AvansDirect</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avoid Brightspace - AvansDirect</title>
     <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
     <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
-    <meta name="description"
-        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
-    <meta property="og:description"
-        content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
+    <meta name="description" content="Try avoiding brightspace to survive.">
+    <meta property="og:description" content="Try avoiding brightspace to survive.">
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --avans-red: #C6002E;
         }
 
         body {
-            background: #000000;
-            background-size: cover;
-            font-family: 'Comic Sans MS', cursive;
-            color: #fff;
-            text-shadow: 2px 2px 4px #000;
-        }
-
-        .header {
-            background: rgba(0, 0, 0, 0.8);
-            border-bottom: 3px solid #ff6b6b;
-            padding: 15px 0;
-        }
-
-        .search-container {
-            background: rgba(0, 0, 0, 0.8);
-            border: 5px solid #ff6b6b;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .avansSearchBar {
             display: flex;
-            flex-direction: row;
-        }
-
-        .search-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 3px solid #ff6b6b;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            color: black;
-        }
-
-        .left.search-input {
-            flex-grow: 3;
-            width: 50%;
-            border-radius: 25px 0px 0px 25px;
-        }
-
-        .right.search-input {
-            border-radius: 0px 25px 25px 0px;
-        }
-
-        .advanced-options {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 2px solid #4ecdc4;
-        }
-
-        .source-selector {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #ff6b6b;
-            border-radius: 15px;
-            padding: 8px;
-            width: 100%;
-            color: black;
-            font-weight: bold;
-        }
-
-        .filter-button {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border: 2px solid white;
-            border-radius: 15px;
-            padding: 8px 20px;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .filter-button:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
-        }
-
-        .result-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #4ecdc4;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .result-card:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .result-title {
-            color: #4ecdc4;
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            text-decoration: none;
-        }
-
-        .result-title:hover {
-            color: #ff6b6b;
-        }
-
-        .result-url {
-            color: #ff6b6b;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-
-        .result-description {
-            color: #ddd;
-            font-size: 1rem;
-        }
-
-        .result-meta {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        .source-badge {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            margin-right: 10px;
-            color: #000;
-        }
-
-        .stats {
-            background: rgba(255, 107, 107, 0.2);
-            padding: 10px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .dancing-text {
-            animation: dance 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes dance {
-            from {
-                transform: translateY(0);
-            }
-
-            to {
-                transform: translateY(-5px);
-            }
-        }
-
-        .blink {
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .toggle-advanced {
-            color: #4ecdc4;
-            text-decoration: none;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            border: 1px solid #4ecdc4;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-advanced:hover {
-            color: #ff6b6b;
-            border-color: #ff6b6b;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .toggle-advanced i {
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-advanced.active i {
-            transform: rotate(180deg);
-        }
-
-        .flex-center {
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        canvas {
+            border: 2px solid #333;
+            background-color: white;
+        }
+
+        #gameStats {
+            margin-top: 20px;
+            font-size: 24px;
+            display: flex;
+            gap: 20px;
+        }
+
+        #instructions {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #restartBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #e31d1a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #restartBtn:hover {
+            background-color: #b31815;
+        }
+
+        #nameInput {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        #nameInput input {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            text-transform: uppercase;
+            width: 100px;
+            text-align: center;
+            margin: 10px 0;
+            background: black;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 5px;
+        }
+
+        #nameInput button {
+            background: #00ff00;
+            color: black;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        #highScores {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-align: right;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3">
-                    <h3 class="dancing-text">AvansDirect Search 🔍</h3>
-                </div>
-                <div class="col-md-9">
-                    <div class="avansSearchBar">
-                        <input type="text" class="search-input left"
-                            placeholder='you can search here, so we are better than brightspace' id="inputField">
-                        <button class="search-input" id="saveSearchQuery">💾</button>
-                        <button class="search-input right" id="searchButton">🔍</button>
-                    </div>
-                    <div class="text-end">
-                        <a class="toggle-advanced" style="display: none;">
-                            Advanced Options <i>▼</i>
-                        </a>
-                    </div>
-                    <div class="advanced-options" style="display: none;">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="mb-2">Source:</label>
-                                <select class="source-selector">
-                                    <option value="any">Any (I'm feeling lucky)</option>
-                                    <option value="internal">Internal (Trust me bro)</option>
-                                    <option value="external">External (Dangerous territory)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="mb-2">Sort by:</label>
-                                <select class="source-selector">
-                                    <option value="relevance">Relevance</option>
-                                    <option value="meme-potential">Meme Potential</option>
-                                    <option value="chaos-level">Chaos Level</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="mb-2">Time:</label>
-                                <select class="source-selector">
-                                    <option value="any">Any time</option>
-                                    <option value="today">Today</option>
-                                    <option value="week">This week</option>
-                                    <option value="month">This month</option>
-                                    <option value="year">This year</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3 d-flex align-items-end">
-                                <button class="filter-button w-100">Apply Filters</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            Advanced filtering: FindFilter1 !HideFilter "Find Filter2" !"Hide Filter2"
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <style>
+        .navbar {
+            background-color: var(--avans-red) !important;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .brightspace-link {
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .brightspace-link:hover {
+            color: #ddd;
+            text-decoration: underline;
+        }
+    </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Main Logo -->
+            <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect (not official avans)</a>
+
+            <!-- Small BrightSpace Link -->
+            <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace
+                (OurBeloved)</a>
+        </div>
+    </nav>
+    <div>
+        <canvas id="gameCanvas" width="800" height="300"></canvas>
+        <div id="gameStats">
+            <div id="score">Score: 0</div>
+            <div id="lives">Lives: 3</div>
+        </div>
+        <div id="instructions">Press SPACE to jump</div>
+        <button id="restartBtn">Restart Game</button>
+        <div id="highScores">
+            <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+        </div>
+        <div id="nameInput">
+            <h2>NEW HIGH SCORE!</h2>
+            <p>Enter your name:</p>
+            <input type="text" maxlength="3" id="playerName">
+            <br>
+            <button onclick="submitHighScore()">Submit</button>
         </div>
     </div>
 
-    <div class="container">
-        <div class="search-container" id="searchContainer" style="display: none;">
-            <div class="stats">
-                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for '<span
-                    id="searchQuery">brightspace</span>' on AvansDirect (0.420
-                seconds)
-            </div>
-
-            <div id="searchResultsContainer">
-            </div>
-            <div class="flex-center" style="gap: 1rem" id="pageNumberContainer">
-                <a id="pageNumberPrevious">
-                    <button class="filter-button">Previous Page</button>
-                </a>
-                <span>Page: <span id="pageNumber">69</span></span>
-                <a id="pageNumberNext">
-                    <button class="filter-button">Next Page</button>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        var avansDirectPages = [{
-            "url": "https://avansdirect.eu/",
-            "external": false,
-            "displayDate": "23-11-2024",
-            "title": "AVANSDIRECT HOMEPAGE🗿",
-            "subtext": "Blablabla",
-        }]
-        fetch('https://avansdirect.eu/data/index.json').then(res => res.json()) // Fetch the JSON data from the AvansDirect API
-            .then(data => {
-                console.log(data); // Log the data to the console
-                avansDirectPages = data; // Store the data in the avansDirectPages variable
-            }).catch(err => {
-                avansDirectPages = []; // If there's an error, set the avansDirectPages variable to an empty array
-            });
-    </script>
-    <script>
-        const queryParams = new URLSearchParams(window.location.search);
-        function stripIncorrectSearches(query) {
-            const articles = []
-            console.log(avansDirectPages)
-            avansDirectPages.forEach(element => {
-                if (query === "") {
-                    element.relevanceScrore = 100;
-                    articles.push(element);
-                    return;
+        var userUUID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        if (localStorage.getItem('AvansDirect/avoidBrightspace/userUUID')) {
+            userUUID = localStorage.getItem('AvansDirect/avoidBrightspace/userUUID');
+        } else {
+            localStorage.setItem('AvansDirect/avoidBrightspace/userUUID', userUUID);
+        }
+
+        const client = mqtt.connect('wss://test.mosquitto.org:8081');
+        client.on('connect', () => {
+            const topic = "AvansDirect/avoidBrightspace";
+            client.subscribe(topic, (err) => {
+                if (!err) {
+                    client.on('message', (topic, message) => {
+                        try {
+                            const parsed = JSON.parse(message.toString());
+                            if (parsed.userUUID === userUUID) return;
+                            parsed.highScores.forEach(element => {
+                                if (element.identifier != undefined && highScores.findIndex(x => x.identifier === element.identifier) === -1) {
+                                    highScores.push(element);
+                                    console.log(element.identifier, true);
+                                } else {
+                                    console.log(element.identifier, false);
+                                }
+                            });
+                            highScores.sort((a, b) => b.score - a.score);
+                            highScores = highScores.slice(0, 5);
+                            localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
+                            updateHighScoresDisplay();
+                            nameInput.style.display = 'none';
+                            restartBtn.style.display = 'block';
+                        } catch (error) {
+                            console.log(error, `Topic: ${topic} \nMessage: ${message}`);
+                        }
+                    });
                 }
-                var maxRelevence = 0;
-                var found = 0;
-                var foundIgnored = 0;
-                query = query.trim();
-                var splittedQuery = query.match(/(?:[^\s"]+|"[^"]*")+/g);
-                splittedQuery.push(query);
-                splittedQuery.forEach(word => {
-                    var foundThisPart = false;
-                    maxRelevence += 1;
-                    var inverted = false;
-                    if (word.startsWith("!")) {
-                        inverted = true;
-                        word = word.substring(1);
-                    }
-                    if (word.startsWith('"') && word.endsWith('"')) {
-                        word = word.substring(1, word.length - 1);
-                    }
-                    if (element.title?.toLowerCase().includes(word.toLowerCase())) {
-                        foundThisPart = true;
-                        inverted ? foundIgnored += 1 : found += 1;
-                    }
-                    if (element.url?.toLowerCase().includes(word.toLowerCase())) {
-                        foundThisPart = true;
-                        inverted ? foundIgnored += 1 : found += 1;
-                    }
-                    if (element.subtext?.toLowerCase().includes(word.toLowerCase())) {
-                        foundThisPart = true;
-                        inverted ? foundIgnored += 1 : found += 1;
-                    }
-                    if (element.displayDate?.toLowerCase().includes(word.toLowerCase())) {
-                        foundThisPart = true;
-                        inverted ? foundIgnored += 1 : found += 1;
-                    }
-                    if (inverted && !foundThisPart) {
-                        found += 1;
+            });
+        });
+
+        function postMessageToMqtt(json) {
+            try {
+                const topic = "AvansDirect/avoidBrightspace";
+                json.userUUID = userUUID;
+                const message = JSON.stringify(json);
+                client.publish(topic, message, (err) => {
+                    if (err) {
+                        console.log(err);
                     }
                 });
-                found -= foundIgnored
-                if (found > 0) {
-                    element.relevanceScrore = Math.floor(found / maxRelevence * 127);
-                    articles.push(element);
-                }
-            });
-            return articles;
+            } catch (error) {
+                console.log(error);
+            }
         }
 
-        function search(overwriteString, page) {
-            const pageLength = 10;
-            if (page == undefined || page < 0) {
-                page = 0;
-            }
-            console.log('searching', overwriteString, page);
-            const searchContainer = document.getElementById('searchContainer');
-            const inputField = document.getElementById('inputField');
-            const searchQueryElement = document.getElementById('searchQuery');
-            const searchResultsContainer = document.getElementById('searchResultsContainer');
-            const amountOfResultsElement = document.getElementById('amountOfResults');
-            const pageNumberContainer = document.getElementById('pageNumberContainer');
-            const pageNumberElement = document.getElementById('pageNumber');
-            const pageNumberPrevious = document.getElementById('pageNumberPrevious');
-            const pageNumberNext = document.getElementById('pageNumberNext');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const restartBtn = document.getElementById('restartBtn');
+        const nameInput = document.getElementById('nameInput');
+        const highScoresDiv = document.getElementById('highScores');
 
-            var searchQuery = inputField.value;
-            if (overwriteString) {
-                searchQuery = overwriteString;
-            } else {
-                sessionStorage.setItem('AvansDirectSearch/searchQuery', searchQuery);
-            }
-            searchContainer.style.display = 'block';
-            searchQueryElement.innerText = searchQuery;
-            var searchResults = stripIncorrectSearches(searchQuery);
-            var queryparamQuery = searchQuery;
-            queryparamQuery == '' ? queryparamQuery = ' ' : queryparamQuery;
+        // High Scores System
+        let highScores = JSON.parse(localStorage.getItem('AvansDirect/avoidBrightspace/HighScores')) || [
+            { name: "AVS", score: 50 },
+            { name: "AVS", score: 25 },
+            { name: "AVS", score: 15 },
+            { name: "AVS", score: 10 },
+            { name: "AVS", score: 5 }
+        ];
 
-            searchResultsContainer.innerHTML = '';
-            amountOfResultsElement.innerText = searchResults.length;
-            searchResults.sort((a, b) => b.relevanceScrore - a.relevanceScrore);
-            if (page == 0 && searchResults.length <= pageLength) {
-                pageNumberContainer.style.display = 'none';
-            } else {
-                pageNumberContainer.style.display = 'flex';
-                pageNumberElement.innerText = page + 1;
-                if (searchResults.length > pageLength) {
-                    if (page == 0) {
-                        pageNumberPrevious.style.filter = 'grayscale(100%)';
-                        pageNumberPrevious.removeAttribute('href');
-                        pageNumberNext.style.filter = 'none';
-                        pageNumberNext.href = `?q=${queryparamQuery}&page=${page + 1}`;
-                    } else {
-                        pageNumberPrevious.style.filter = 'none';
-                        pageNumberPrevious.href = `?q=${queryparamQuery}&page=${page - 1}`;
-                        console.log(searchResults.length, ((page + 1) * pageLength) + 1);
-                        if (searchResults.length >= ((page + 1) * pageLength) + 1) {
-                            pageNumberNext.style.filter = 'none';
-                            pageNumberNext.href = `?q=${queryparamQuery}&page=${page + 1}`;
-                        } else {
-                            pageNumberNext.style.filter = 'grayscale(100%)';
-                            pageNumberNext.removeAttribute('href');
-                        }
-                    }
+        function updateHighScoresDisplay() {
+            const scoresHtml = highScores
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 5)
+                .map((score, index) => `
+            <div>${score.name} - ${score.score}</div>
+        `)
+                .join('');
 
-
-
-                    searchResults = searchResults.slice(page * pageLength, page * pageLength + pageLength);
-                }
-            }
-
-
-
-
-            searchResults.forEach(result => {
-                const resultCard = document.createElement('div');
-                resultCard.classList.add('result-card');
-                resultCard.innerHTML = `
-                    <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
-                    <div class="result-url">${result.url}</div>
-                    <div class="result-description">${result.subtext}</div>
-                    <div class="result-meta">
-                        <span class="source-badge">${result.external ? 'external' : 'internal'}</span>
-                        Last updated: ${result.displayDate} - Relevance Score: ${result.relevanceScrore}
-                    </div>
-                `;
-                searchResultsContainer.appendChild(resultCard);
-            });
-
+            highScoresDiv.innerHTML = `
+        <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+        ${scoresHtml}
+    `;
         }
-        window.addEventListener('load', function () {
-            document.getElementById('saveSearchQuery').addEventListener('click', function () {
-                const inputField = document.getElementById('inputField');
-                sessionStorage.setItem('AvansDirectSearch/searchQuery', inputField.value);
-                window.location = `?q=${inputField.value}&page=0`;
-            });
-            document.querySelector('.toggle-advanced').addEventListener('click', function () {
-                const advancedOptions = document.querySelector('.advanced-options');
-                const isVisible = advancedOptions.style.display !== 'none';
-                advancedOptions.style.display = isVisible ? 'none' : 'block';
-                this.classList.toggle('active');
-            });
-            document.getElementById('searchButton').addEventListener('click', function () {
-                search();
-            });
-            document.getElementById('inputField').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    search();
+
+        function checkHighScore(score) {
+            const lowestScore = Math.min(...highScores.map(x => x.score));
+            return score > lowestScore || highScores.length < 5;
+        }
+
+        function submitHighScore() {
+            const playerName = document.getElementById('playerName').value.toUpperCase();
+            if (playerName) {
+                highScores.push({ name: playerName, score: score, identifier: `${userUUID}${Date.now()}` });
+                highScores.sort((a, b) => b.score - a.score);
+                highScores = highScores.slice(0, 5);
+                localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
+                updateHighScoresDisplay();
+                nameInput.style.display = 'none';
+                restartBtn.style.display = 'block';
+                postMessageToMqtt({ highScores: highScores });
+            }
+        }
+
+        // Load images
+        const avansImg = new Image();
+        avansImg.src = 'https://avansdirect.eu/assets/icon.png';
+
+        const brightspaceImg = new Image();
+        brightspaceImg.src = 'https://i.imgur.com/WNQIz3Y.png';
+
+        // Game objects
+        const player = {
+            x: 50,
+            y: 199,
+            width: 50,
+            height: 50,
+            jumping: false,
+            velocity: 0,
+            gravity: 0.8,
+            jumpStrength: -16
+        };
+
+        const obstacle = {
+            x: canvas.width,
+            y: 200,
+            width: 40,
+            height: 50,
+            speed: 5,
+            baseSpeed: 5,
+            acceleration: 0.2
+        };
+
+        let score = 0;
+        let lives = 3;
+        let gameOver = false;
+        let animationId;
+        let gameTime = 0;
+        let lastTime = 0;
+
+        const deathMessages = [
+            "You didn't get your study points!",
+            "You forgot your exercises!",
+            "Your Brightspace didn't load in time!",
+            "Error 404: Assignment not found!",
+            "Brightspace ate your homework!",
+            "Your deadlines caught up with you!",
+            "Connection to Brightspace lost...",
+            "The server is not responding!"
+        ];
+
+        function update(deltaTime) {
+            if (gameOver) return;
+
+            // Convert deltaTime to seconds and adjust game speed accordingly
+            const timeStep = deltaTime / 1000;
+
+            gameTime += timeStep;
+
+            if (gameTime >= 2.5) {  // Increase speed every 2.5 seconds
+                obstacle.speed += obstacle.acceleration * timeStep;
+                gameTime = 0;
+            }
+
+            if (player.jumping) {
+                player.velocity += player.gravity * timeStep * 60;  // Scale gravity with deltaTime
+                player.y += player.velocity * timeStep * 60;
+
+                if (player.y > 199) {
+                    player.y = 199;
+                    player.jumping = false;
+                    player.velocity = 0;
                 }
-            });
-            setTimeout(() => {
-                const savedQuery = sessionStorage.getItem('AvansDirectSearch/searchQuery')
-                const page = queryParams.has('page') ? parseInt(queryParams.get('page')) : 0;
-                const queryToLookup = queryParams.has('q') ? queryParams.get('q') : savedQuery;
-                console.log(queryParams.get('page'), queryParams.get('q'), queryToLookup);
-                if (queryToLookup) {
-                    search(queryToLookup, page);
-                    document.getElementById('inputField').value = queryToLookup.trim();
+            }
+
+            obstacle.x -= obstacle.speed * timeStep * 60;  // Scale movement with deltaTime
+
+            if (obstacle.x < -obstacle.width) {
+                obstacle.x = canvas.width;
+                const heightMode = Math.floor(Math.random() * 4);
+                if (heightMode === 0) {
+                    obstacle.y = 200;
+                } else if (heightMode === 1) {
+                    obstacle.y = 125;
                 } else {
-                    search("");
+                    obstacle.y = 175;
                 }
-            }, 1000);
+                score++;
+                scoreElement.textContent = `Score: ${score}`;
+            }
+
+            if (checkCollision()) {
+                lives--;
+                livesElement.textContent = `Lives: ${lives}`;
+                obstacle.x = canvas.width;
+
+                if (lives <= 0) {
+                    gameOver = true;
+                    cancelAnimationFrame(animationId);
+                    postMessageToMqtt({ highScores: highScores });
+                    drawGameOver();
+
+                    if (checkHighScore(score)) {
+                        nameInput.style.display = 'block';
+                    } else {
+                        restartBtn.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.moveTo(0, 250);
+            ctx.lineTo(canvas.width, 250);
+            ctx.strokeStyle = '#333';
+            ctx.stroke();
+
+            ctx.drawImage(avansImg, player.x, player.y, player.width, player.height);
+            ctx.drawImage(brightspaceImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Courier New';
+            ctx.textAlign = 'right';
+            ctx.fillText(`Speed: ${obstacle.speed.toFixed(1)}x`, canvas.width - 10, 20);
+        }
+
+        function gameLoop(currentTime) {
+            if (lastTime === 0) {
+                lastTime = currentTime;
+            }
+
+            const deltaTime = currentTime - lastTime;
+            lastTime = currentTime;
+
+            update(deltaTime);
+            draw();
+
+            if (!gameOver) {
+                animationId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function checkCollision() {
+            return player.x < obstacle.x + obstacle.width &&
+                player.x + player.width > obstacle.x &&
+                player.y < obstacle.y + obstacle.height &&
+                player.y + player.height > obstacle.y;
+        }
+
+        function drawGameOver() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = '32px Courier New';
+            ctx.textAlign = 'center';
+
+            const message = deathMessages[Math.floor(Math.random() * deathMessages.length)];
+            alert(message);
+
+            ctx.font = '24px Courier New';
+            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+        }
+
+        function resetGame() {
+            player.y = 200;
+            player.jumping = false;
+            player.velocity = 0;
+            obstacle.x = canvas.width;
+            obstacle.speed = obstacle.baseSpeed;
+            score = 0;
+            lives = 3;
+            gameTime = 0;
+            lastTime = 0;
+            scoreElement.textContent = `Score: ${score}`;
+            livesElement.textContent = `Lives: ${lives}`;
+            gameOver = false;
+            restartBtn.style.display = 'none';
+            nameInput.style.display = 'none';
+            gameLoop();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !player.jumping) {
+                player.jumping = true;
+                player.velocity = player.jumpStrength;
+            }
         });
+
+        restartBtn.addEventListener('click', resetGame);
+
+        // Initialize high scores display
+        updateHighScoresDisplay();
+
+        // Start the game
+        requestAnimationFrame(gameLoop);
     </script>
-    <script src="https://avansdirect.eu/components/disclaimer.js"></script>
-    <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
-    <script src="https://avansdirect.eu/components/navBar.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
     <script>
@@ -499,6 +471,7 @@
 
         gtag('config', 'G-C9P58S1LKK');
     </script>
+
 </body>
 
 </html>
