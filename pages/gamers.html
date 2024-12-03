@@ -114,32 +114,28 @@
         .navbar {
             background-color: var(--avans-red) !important;
         }
-
         .navbar-brand {
             font-weight: bold;
             font-size: 1.5rem;
         }
-
         .brightspace-link {
             font-size: 0.9rem;
             color: white;
         }
-
         .brightspace-link:hover {
             color: #ddd;
             text-decoration: underline;
         }
     </style>
-
+    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container d-flex justify-content-between align-items-center">
             <!-- Main Logo -->
             <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect (not official avans)</a>
-
+            
             <!-- Small BrightSpace Link -->
-            <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace
-                (OurBeloved)</a>
+            <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
         </div>
     </nav>
     <div>
@@ -169,7 +165,7 @@
         } else {
             localStorage.setItem('AvansDirect/avoidBrightspace/userUUID', userUUID);
         }
-
+        console.log(userUUID);
         const client = mqtt.connect('wss://test.mosquitto.org:8081');
         client.on('connect', () => {
             const topic = "AvansDirect/avoidBrightspace";
@@ -182,6 +178,7 @@
                             if (element.identifier != undefined && highScores.findIndex(x => x.identifier === element.identifier) === -1) {
                                 highScores.push(element);
                                 console.log(element.identifier, true);
+
                             } else {
                                 console.log(element.identifier, false);
                             }
@@ -195,8 +192,7 @@
                     });
                 }
             });
-        });
-
+        })
         function postMessageToMqtt(json) {
             try {
                 const topic = "AvansDirect/avoidBrightspace";
@@ -234,14 +230,14 @@
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 5)
                 .map((score, index) => `
-            <div>${score.name} - ${score.score}</div>
-        `)
+                    <div>${score.name} - ${score.score}</div>
+                `)
                 .join('');
 
             highScoresDiv.innerHTML = `
-        <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
-        ${scoresHtml}
-    `;
+                <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
+                ${scoresHtml}
+            `;
         }
 
         function checkHighScore(score) {
@@ -297,7 +293,6 @@
         let gameOver = false;
         let animationId;
         let gameTime = 0;
-        let lastTime = 0;
 
         const deathMessages = [
             "You didn't get your study points!",
@@ -310,22 +305,18 @@
             "The server is not responding!"
         ];
 
-        function update(deltaTime) {
+        function update() {
             if (gameOver) return;
 
-            // Convert deltaTime to seconds and adjust game speed accordingly
-            const timeStep = deltaTime / 1000;
+            gameTime++;
 
-            gameTime += timeStep;
-
-            if (gameTime >= 2.5) {  // Increase speed every 2.5 seconds
-                obstacle.speed += obstacle.acceleration * timeStep;
-                gameTime = 0;
+            if (gameTime % 250 === 0) {
+                obstacle.speed += obstacle.acceleration;
             }
 
             if (player.jumping) {
-                player.velocity += player.gravity * timeStep * 60;  // Scale gravity with deltaTime
-                player.y += player.velocity * timeStep * 60;
+                player.velocity += player.gravity;
+                player.y += player.velocity;
 
                 if (player.y > 199) {
                     player.y = 199;
@@ -334,8 +325,7 @@
                 }
             }
 
-            obstacle.x -= obstacle.speed * timeStep * 60;  // Scale movement with deltaTime
-
+            obstacle.x -= obstacle.speed;
             if (obstacle.x < -obstacle.width) {
                 obstacle.x = canvas.width;
                 const heightMode = Math.floor(Math.random() * 4);
@@ -388,17 +378,9 @@
             ctx.fillText(`Speed: ${obstacle.speed.toFixed(1)}x`, canvas.width - 10, 20);
         }
 
-        function gameLoop(currentTime) {
-            if (lastTime === 0) {
-                lastTime = currentTime;
-            }
-
-            const deltaTime = currentTime - lastTime;
-            lastTime = currentTime;
-
-            update(deltaTime);
+        function gameLoop() {
+            update();
             draw();
-
             if (!gameOver) {
                 animationId = requestAnimationFrame(gameLoop);
             }
@@ -434,7 +416,6 @@
             score = 0;
             lives = 3;
             gameTime = 0;
-            lastTime = 0;
             scoreElement.textContent = `Score: ${score}`;
             livesElement.textContent = `Lives: ${lives}`;
             gameOver = false;
@@ -456,16 +437,16 @@
         updateHighScoresDisplay();
 
         // Start the game
-        requestAnimationFrame(gameLoop);
+        gameLoop();
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-        gtag('config', 'G-C9P58S1LKK');
+    gtag('config', 'G-C9P58S1LKK');
     </script>
 
 </body>
