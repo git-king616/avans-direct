@@ -148,10 +148,7 @@
             <div id="score">Score: 0</div>
             <div id="lives">Lives: 3</div>
         </div>
-        <div id="instructions">
-            Press SPACE to jump<br />
-            Press P to pause
-        </div>
+        <div id="instructions">Press SPACE to jump</div>
         <button id="restartBtn">Restart Game</button>
         <div id="highScores">
             <div style="text-align: center; border-bottom: 1px solid #00ff00; margin-bottom: 5px;">HIGH SCORES</div>
@@ -166,14 +163,6 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreElement = document.getElementById('score');
-        const livesElement = document.getElementById('lives');
-        const restartBtn = document.getElementById('restartBtn');
-        const nameInput = document.getElementById('nameInput');
-        const highScoresDiv = document.getElementById('highScores');
-
         var userUUID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         if (localStorage.getItem('AvansDirect/avoidBrightspace/userUUID')) {
             userUUID = localStorage.getItem('AvansDirect/avoidBrightspace/userUUID');
@@ -226,6 +215,14 @@
                 console.log(error);
             }
         }
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const livesElement = document.getElementById('lives');
+        const restartBtn = document.getElementById('restartBtn');
+        const nameInput = document.getElementById('nameInput');
+        const highScoresDiv = document.getElementById('highScores');
 
         // High Scores System
         let highScores = JSON.parse(localStorage.getItem('AvansDirect/avoidBrightspace/HighScores')) || [
@@ -299,11 +296,9 @@
             acceleration: 0.2
         };
 
-
         let score = 0;
         let lives = 3;
         let gameOver = false;
-        let gameIsPaused = false;
         let animationId;
         let gameTime = 0;
         let lastTime = 0;
@@ -320,7 +315,7 @@
         ];
 
         function update(deltaTime) {
-            if (gameOver || gameIsPaused) return;
+            if (gameOver) return;
 
             // Convert deltaTime to seconds and adjust game speed accordingly
             const timeStep = deltaTime / 1000;
@@ -395,21 +390,6 @@
             ctx.font = '14px Courier New';
             ctx.textAlign = 'right';
             ctx.fillText(`Speed: ${obstacle.speed.toFixed(1)}x`, canvas.width - 10, 20);
-
-            if (gameIsPaused) {
-                drawPauseScreen();
-            }
-        }
-
-        function drawPauseScreen() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00ff00';
-            ctx.font = '32px Courier New';
-            ctx.textAlign = 'center';
-            ctx.fillText('GAME PAUSED', canvas.width / 2, canvas.height / 2 - 20);
-            ctx.font = '20px Courier New';
-            ctx.fillText('Press P to resume', canvas.width / 2, canvas.height / 2 + 20);
         }
 
         function gameLoop(currentTime) {
@@ -459,7 +439,6 @@
             lives = 3;
             gameTime = 0;
             lastTime = 0;
-            gameIsPaused = false;
             scoreElement.textContent = `Score: ${score}`;
             livesElement.textContent = `Lives: ${lives}`;
             gameOver = false;
@@ -469,11 +448,9 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' && !player.jumping && !gameIsPaused) {
+            if (e.code === 'Space' && !player.jumping) {
                 player.jumping = true;
                 player.velocity = player.jumpStrength;
-            } else if (e.code === 'KeyP' && !gameOver) {
-                gameIsPaused = !gameIsPaused;
             }
         });
 

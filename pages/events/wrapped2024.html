@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapped - AvansDirect</title>
+    <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
+    <meta name="description"
+        content="View your 2024 AvansDirect Wrapped now! 🤩">
+    <meta property="og:description"
+        content="View your 2024 AvansDirect Wrapped now! 🤩">
+    <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: transform 0.8s ease, opacity 0.8s ease;
+            padding: 4rem 1rem;
+            overflow-y: auto;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anticipation {
+            font-size: min(2.5rem, 8vw);
+            font-weight: bold;
+            text-align: center;
+            animation: pulse 1.5s ease-in-out infinite;
+            padding: 0 1rem;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .stat {
+            font-size: min(4rem, 12vw);
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            animation: countUp 2s ease-out;
+            padding: 0 1rem;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .label {
+            font-size: min(1.5rem, 6vw);
+            text-align: center;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+
+        .description {
+            font-size: min(1.2rem, 5vw);
+            text-align: center;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+
+        .user-type {
+            font-size: min(3rem, 10vw);
+            font-weight: bold;
+            text-align: center;
+            margin: 2rem 0;
+            animation: rainbow 3s linear infinite;
+            padding: 0 1rem;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            width: min(90%, 1200px);
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .summary-stat {
+            font-size: min(2rem, 8vw);
+            font-weight: bold;
+            margin: 0.5rem 0;
+            word-wrap: break-word;
+        }
+
+        @keyframes rainbow {
+            0% {
+                color: #ff0000;
+            }
+
+            33% {
+                color: #00ff00;
+            }
+
+            66% {
+                color: #0000ff;
+            }
+
+            100% {
+                color: #ff0000;
+            }
+        }
+
+        .navigation-buttons {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .next-button,
+        .reset-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: min(1.2rem, 5vw);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .next-button:hover,
+        .reset-button:hover {
+            transform: scale(1.1);
+        }
+
+        .emoji-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .emoji {
+            position: absolute;
+            animation: fall 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .page {
+                padding-top: 2rem;
+                padding-bottom: 5rem;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                bottom: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .next-button,
+            .reset-button {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        /* Safe area for notched phones */
+        @supports (padding: max(0px)) {
+            .navigation-buttons {
+                padding-bottom: max(1rem, env(safe-area-inset-bottom));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="emoji-rain" id="emojiRain"></div>
+
+    <div class="page active" id="page1">
+        <div class="label">Welcome to Your</div>
+        <div class="stat">2024 AvansDirect Wrapped</div>
+        <div class="description">Let's see how well you've been hating brightspace this year...</div>
+    </div>
+
+    <div class="page" id="page2">
+        <div class="anticipation">Analyzing your clicks...</div>
+    </div>
+
+    <div class="page" id="page3">
+        <div class="label">Total Time Spent on AvansDirect.eu</div>
+        <div class="stat">35 hours</div>
+        <div class="description">That's equivalent to watching the Lord of the Rings trilogy 3 times!</div>
+    </div>
+
+    <div class="page" id="page4">
+        <div class="anticipation">Calculating your scrolling habits...</div>
+    </div>
+
+    <div class="page" id="page5">
+        <div class="label">Your Scroll Marathon</div>
+        <div class="stat">12.7 km</div>
+        <div class="description">Your thumb ran a half marathon! 🏃‍♂️</div>
+    </div>
+
+    <div class="page" id="page6">
+        <div class="anticipation">Discovering your browsing personality...</div>
+    </div>
+
+    <div class="page" id="page7">
+        <div class="label">Your Browser Type Is...</div>
+        <div class="user-type">Nocturnal Ninja Narwhal</div>
+        <div class="description">You're the rare specimen who browses exclusively during full moons while eating ice
+            cream. Only 0.001% of users share this trait!</div>
+    </div>
+
+    <div class="page" id="page8">
+        <div class="anticipation">Analyzing your rage clicks...</div>
+    </div>
+
+    <div class="page" id="page9">
+        <div class="label">Rage Clicks</div>
+        <div class="stat">847 times</div>
+        <div class="description">You've angrily clicked buttons 847 times! We'd suggest to not open Brightspace as much,
+            that'll probably help.</div>
+    </div>
+
+    <div class="page" id="page10">
+        <div class="anticipation">Investigating your 404 adventures...</div>
+    </div>
+
+    <div class="page" id="page11">
+        <div class="label">404 Pages Found</div>
+        <div class="stat">13 pages</div>
+        <div class="description">You're quite the explorer! These pages don't exist, but you found them anyway! 🗺️
+        </div>
+    </div>
+
+    <div class="page" id="page12">
+        <div class="anticipation">Thinking about your battery life...</div>
+    </div>
+
+    <div class="page" id="page13">
+        <div class="label">Your average battery percentage</div>
+        <div class="stat">3.4%</div>
+        <div class="description">You're living life on the edge! 🔋
+        </div>
+    </div>
+
+    <div class="page" id="page14">
+        <div class="anticipation">Calculating your waiting time...</div>
+    </div>
+
+    <div class="page" id="page15">
+        <div class="label">Sleep tight</div>
+        <div class="stat">27.4 hours</div>
+        <div class="description">You've spent 27.4 hours waiting for Brightspace to load. That's a lot of time to catch
+            up
+            on sleep! 😴</div>
+    </div>
+    </div>
+
+    <div class="page" id="page16">
+        <div class="label">Your 2024 AvansDirect Wrapped Summary</div>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="label">Time Spent</div>
+                <div class="summary-stat">35 hours</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Scroll Distance</div>
+                <div class="summary-stat">12.7 km</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Rage Clicks</div>
+                <div class="summary-stat">847</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">404 Pages</div>
+                <div class="summary-stat">13</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Your Type</div>
+                <div class="summary-stat">Nocturnal Ninja Narwhal</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Brightspace Loading time</div>
+                <div class="summary-stat">27.4 hours</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">Battery Percentage</div>
+                <div class="summary-stat">3.4%</div>
+
+            </div>
+        </div>
+        <button class="reset-button" onclick="resetExperience()">Start Over</button>
+    </div>
+
+    <button class="next-button" id="nextButton" onclick="nextPage()">Next →</button>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 16;
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page${currentPage}`).classList.add('active');
+
+                if (currentPage === 7) {
+                    createEmojiRain();
+                } else {
+                    document.getElementById('emojiRain').innerHTML = ''; // Clear emojis
+                }
+
+                // Hide next button on last page
+                if (currentPage === totalPages) {
+                    document.getElementById('nextButton').style.display = 'none';
+                }
+            }
+        }
+
+        function resetExperience() {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage = 1;
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('nextButton').style.display = 'block';
+        }
+
+        function createEmojiRain() {
+            const container = document.getElementById('emojiRain');
+            container.innerHTML = ''; // Clear previous emojis
+            const emojis = ['🌙', '🦄', '🍦', '✨', '🌟', '🎮', '🎨'];
+
+            for (let i = 0; i < 30; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.style.left = `${Math.random() * 100}vw`;
+                emoji.style.animationDelay = `${Math.random() * 3}s`;
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.fontSize = `${Math.random() * 20 + 20}px`;
+                container.appendChild(emoji);
+            }
+        }
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') {
+                if (currentPage < totalPages) {
+                    nextPage();
+                }
+            }
+        });
+    </script>
+    <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-C9P58S1LKK');
+    </script>
+</body>
+
+</html>

@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AVANS: ULTIMATE MEME UNIVERSITY 💀</title>
+    <title>Homepage💀 - AvansDirect</title>
     <meta name="description"
         content="The place to be... Not really. There is no slayying here in the slightest">
     <meta name="keywords" content="Avans, Brightspace, AvansHogeschool, HBO">
     <meta name="author" content="St. Joost fanclub">
     <meta property="og:title" content="AVANS: ULTIMATE MEME UNIVERSITY 💀">
     <meta property="og:description"
-        content="The place to be... Not really. There is no slayying here in the slightest">
-    <link rel="icon" type="image/x-icon" href="./assets/icon.png">
-    <meta property="og:image" content="./assets/avans.png">
+    content="The place to be... Not really. There is no slayying here in the slightest">
+    <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
+    <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
     <meta property="og:url" content="https://avansdirect.eu">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -43,6 +43,13 @@
         .btn-epic-meme:hover {
             transform: scale(1.1) rotate(5deg);
             background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+        }
+        .wrapped {
+            background: linear-gradient(45deg, #d106d1, #084de4);
+            color: #e6d712;
+        }
+        .wrapped:hover {
+            background: linear-gradient(45deg, #084de4, #d106d1);
         }
         .btn-brightspace {
             background: linear-gradient(45deg, #ff4444, #ff9999);
@@ -162,6 +169,7 @@
                         <li>ZERO BORING ENERGY ALLOWED</li>
                     </ul>
                     <button class="btn btn-danger" id="survey">SUBMIT APPLICATION</button>
+
                 </div>
             </div>
         </div>
@@ -188,6 +196,57 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid py-5">
+        <div class="mega-meme-container text-center">
+            <h2 class="display-4 mb-4">NAVIGATE THE CHAOS 🧭</h2>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-3">
+                    <a href="/" class="btn btn-epic-meme btn-lg w-100">
+                        HOME BASE 🏠
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="./pages/gamers.html" class="btn btn-epic-meme btn-lg w-100">
+                        BRIGHTSPACE TRAININGGROUNDS 💪
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/pages/events/wrapped2024.html" class="btn btn-epic-meme wrapped btn-lg w-100">
+                        YOUR AVANSDIRECT WRAPPED 2024🤩
+                    </a>
+                </div>
+                <!-- <div class="col-md-3">
+                    <a href="/pages/hall-of-fame.html" class="btn btn-epic-meme btn-lg w-100">
+                        MEME HALL OF FAME 🏆
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/pages/survival.html" class="btn btn-epic-meme btn-lg w-100">
+                        SURVIVAL GUIDE 💀
+                    </a>
+                </div> -->
+            </div>
+    
+            <div class="row g-4 justify-content-center mt-3">
+                <!-- <div class="col-md-3">
+                    <a href="/pages/events.html" class="btn btn-epic-meme btn-lg w-100">
+                        EVENTS & CHAOS 🎉
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/pages/meme-degree.html" class="btn btn-epic-meme btn-lg w-100">
+                        GET YOUR MEME DEGREE 📜
+                    </a>
+                </div> -->
+                <div class="col-md-3">
+                    <a href="/pages/partners-n-sponsors/about-us.html" class="btn btn-epic-meme btn-lg w-100">
+                        ABOUT US 🗿
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="partners-section">
         <div class="container">
             <h2>OUR EPIC PARTNERS 🤝</h2>
@@ -195,25 +254,38 @@
                 <a class="col-md-3 col-sm-6" href="http://davinkiheren.nl/" target="_blank">
                     <img src="./assets/davinki.png" alt="Davinki heren" class="partner-logo">
                 </a>
-                <a class="col-md-3 col-sm-6" href="./pages/articles/brightspace-haters.html" target="_blank">
+                <a class="col-md-3 col-sm-6" href="./pages/partners-n-sponsors/brightspace-haters.html" target="_blank">
                     <img src="./assets/brightspace-haters.png" alt="Brightspace Haters" class="partner-logo">
                 </a>
-                <div class="col-md-3 col-sm-6">
-                    <img src="./assets/icon.png" alt="Avansus" class="partner-logo">
-                </div>
+                <a class="col-md-3 col-sm-6" href="./pages/partners-n-sponsors/HeteschoolRieterdam.html" target="_blank">
+                    <img src="./assets/HeteschoolRieterdam.png" alt="Heteschool Rieterdam" class="partner-logo">
+                </a>
                 <div class="col-md-3 col-sm-6">
                     <img src="" alt="CLASSIFIED" class="partner-logo">
                 </div>
             </div>
         </div>
     </section>
-    <script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("survey").onclick = function () {
+            console.log("ya");
             location.href = "https://avansdirect.eu/pages/survey.html";
         };
+    });
     </script>
-    <script src="components/analytics.js"></script>
     <script src="components/disclaimer.js"></script>
     <script src="components/navBar.js"></script>
+    <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C9P58S1LKK');
+    </script>
 </body>
 </html>

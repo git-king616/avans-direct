@@ -1,18 +1,28 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #222;
-    color: white;
     font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.instructions {
+    margin-bottom: 20px;
 }
 
 .game-container {
+    border: 3px solid white;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #fff;
-    background-color: #000;
+}
+
+canvas {
+    display: block;
 }

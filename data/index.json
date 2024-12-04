@@ -1,0 +1,114 @@
+[
+    {
+        "url": "https://avansdirect.eu/",
+        "external": false,
+        "displayDate": "23-11-2024",
+        "title":"AVANS: ULTIMATE MEME UNIVERSITY 💀",
+        "subtext": "The place to be... Not really. There is no slayying here in the slightest"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/search/",
+        "external": false,
+        "displayDate": "30-11-2024",
+        "title":"AvansDirect Search 🔎",
+        "subtext": "Once upon a time, there was a place where you could search. It was not brightspace. 🗿"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/gamers.html",
+        "external": false,
+        "displayDate": "03-12-2024",
+        "title":"Brightspace Traininggrounds 💪",
+        "subtext": "As a student, we have learnt that Brightspace is bad. But now we need to learn how to avoid it."
+    },
+    {
+        "url": "http://davinkiheren.nl/",
+        "external": true,
+        "displayDate": "03-07-2024",
+        "title":"Davinki Heren",
+        "subtext": "Deze jaren op het Da Vinci college hebben ons vele bezeringen gebracht fysiek en mentaal. Klotezooi. Wij met z’n allen willen u van harte bedanken dat wij met u drugs mochten verhandelen. "
+    },
+    {
+        "url": "https://avansdirect.eu/archive/secrets/MarioAndLuigi2027.html",
+        "external": false,
+        "displayDate": "25-11-2024",
+        "title":"New Mario & Luigi RPG game!",
+        "subtext": "Embark on the most unpredictable adventure in 'Mario & Luigi: Quantum Chrononauts'! Explore new dimensions, paradoxes, and quantum chaos."
+    },
+    {
+        "url": "https://avansdirect.eu/archive/secrets/marki.html",
+        "external": false,
+        "displayDate": "27-11-2024",
+        "title":"Marki",
+        "subtext": "Overderven Mark, Doh."
+    },
+    {
+        "url": "https://avansdirect.eu/pages/events/wrapped2024.html",
+        "external": false,
+        "displayDate": "30-11-2024",
+        "title":"AvansDirect Wrapped 2024 💃",
+        "subtext": "View your 2024 AvansDirect Wrapped now! 🤩"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/partners-n-sponsors/about-us.html",
+        "external": false,
+        "displayDate": "28-11-2024",
+        "title":"About us 🗿",
+        "subtext": "We da hatterrzzz of Avans bro. XD. Nah, We are AvansDirect. Learn more about use here. Although, I don't think you'll learn much."
+    },
+    {
+        "url": "https://avansdirect.eu/pages/partners-n-sponsors/brightspace-haters.html",
+        "external": false,
+        "displayDate": "28-11-2024",
+        "title":"The Brightspace Haters Partnerpage 🤝",
+        "subtext": "This is a club of people passionate about hating Brightspace. People from all over the world. And since AvansDirect also hates brightspace, we decided to partner up!"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/partners-n-sponsors/BUas.html",
+        "external": false,
+        "displayDate": "30-11-2024",
+        "title":"The BUas Partnerpage 🤝",
+        "subtext": "{AvansDirectApi.GetSubtext('BUas.html')}"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/partners-n-sponsors/HeteschoolRieterdam.html",
+        "external": false,
+        "displayDate": "30-11-2024",
+        "title":"The Heteschool Rieterdam Partnerpage 🤝",
+        "subtext": "Heteschool Rieterdam is one of our partners. We have a mutual hate against Brightspace, and that's enough to unite people!"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/snakegame/game.html",
+        "external": false,
+        "displayDate": "28-11-2024",
+        "title":"Snek🐍",
+        "subtext": "The AvansDirect snake game is back!! We decided to revive it from our archive of dead webpages :D"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/rule34.html",
+        "external": false,
+        "displayDate": "28-11-2024",
+        "title":"Rule 34 page.",
+        "subtext": "I don't know either. Please can someone explain this? Why do we have a rule34 page?"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/survey.html",
+        "external": false,
+        "displayDate": "28-11-2024",
+        "title":"Join Avans!",
+        "subtext": "This is a basic questionare that'll show you how much you'll probably enjoy Avans."
+    },
+    {
+        "url": "https://avansdirect.eu/assets/brightspace.jpg",
+        "external": false,
+        "displayDate": "20-11-2024",
+        "title":"Brightspace (our beloved!)",
+        "subtext": "This is our artistic representation of our beloved website Brightspace."
+    },
+    {
+        "url": "https://avansdirect.eu/404.html",
+        "external": false,
+        "displayDate": "20-11-2024",
+        "title":"{AvansDirectApi.GetTitle('404Webpage.html')}",
+        "subtext": "{AvansDirectApi.GetSubtext('404Webpage.html')}"
+    }
+]
