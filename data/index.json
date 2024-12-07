@@ -110,5 +110,12 @@
         "displayDate": "20-11-2024",
         "title":"{AvansDirectApi.GetTitle('404Webpage.html')}",
         "subtext": "{AvansDirectApi.GetSubtext('404Webpage.html')}"
+    },
+    {
+        "url": "https://avansdirect.eu/pages/december/december.html",
+        "external": false,
+        "displayDate": "04-12-2024",
+        "title":"❄️December🎄",
+        "subtext": "It's the best time of the year. December. With a lot of Rain and darkness. But AvansDirect also enjoys this time of year, just like you. We celebrate it together! "
     }
 ]
