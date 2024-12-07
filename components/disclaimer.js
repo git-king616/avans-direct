@@ -23,6 +23,7 @@ const disclaimerModalCode = `
         backdrop-filter: blur(5px);
         font-family: "Impact", "Comic Sans MS", cursive;
         color: #000000;
+        text-shadow: none;
     }
 </style>
 <div class="modal disclaimer-modal" id="disclaimerModal" data-bs-backdrop="static">
@@ -32,7 +33,8 @@ const disclaimerModalCode = `
                 <h5 class="modal-title">Disclaimer</h5>
             </div>
             <div class="modal-body">
-                <p>Please note that this is not an official Avans website. This is a parody fan site created for entertainment purposes only.</p>
+                <p>Please note that this is not an official Avans website. This is a parody fan site created for entertainment purposes only.<br/>
+                This also means that none of the content on this website is associated with Avans nor with Allianz Direct.</p>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="dontShowAgain">
                     <label class="form-check-label" for="dontShowAgain">

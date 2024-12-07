@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Search 🔍 - AvansDirect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
     <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
     <meta name="description"
         content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
     <meta property="og:description"
         content="Once upon a time, there was a place where you could search. It was not brightspace. 🗿">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --avans-red: #C6002E;
@@ -51,13 +51,13 @@
             color: black;
         }
 
-        input.search-input {
+        .left.search-input {
             flex-grow: 3;
             width: 50%;
             border-radius: 25px 0px 0px 25px;
         }
 
-        button.search-input {
+        .right.search-input {
             border-radius: 0px 25px 25px 0px;
         }
 
@@ -208,6 +208,12 @@
         .toggle-advanced.active i {
             transform: rotate(180deg);
         }
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -220,9 +226,10 @@
                 </div>
                 <div class="col-md-9">
                     <div class="avansSearchBar">
-                        <input type="text" class="search-input"
-                            placeholder="you can search here, so we are better than brightspace" id="inputField">
-                        <button class="search-input" id="searchButton">🔍</button>
+                        <input type="text" class="search-input left"
+                            placeholder='you can search here, so we are better than brightspace' id="inputField">
+                        <button class="search-input" id="saveSearchQuery">💾</button>
+                        <button class="search-input right" id="searchButton">🔍</button>
                     </div>
                     <div class="text-end">
                         <a class="toggle-advanced" style="display: none;">
@@ -261,6 +268,9 @@
                                 <button class="filter-button w-100">Apply Filters</button>
                             </div>
                         </div>
+                        <div class="row">
+                            Advanced filtering: FindFilter1 !HideFilter "Find Filter2" !"Hide Filter2"
+                        </div>
                     </div>
                 </div>
             </div>
@@ -270,12 +280,21 @@
     <div class="container">
         <div class="search-container" id="searchContainer" style="display: none;">
             <div class="stats">
-                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for "<span
-                    id="searchQuery">brightspace</span>" (0.420
+                <span class="blink">⚡</span> Found <span id="amountOfResults">42069</span> results for '<span
+                    id="searchQuery">brightspace</span>' on AvansDirect (0.420
                 seconds)
             </div>
 
             <div id="searchResultsContainer">
+            </div>
+            <div class="flex-center" style="gap: 1rem" id="pageNumberContainer">
+                <a id="pageNumberPrevious">
+                    <button class="filter-button">Previous Page</button>
+                </a>
+                <span>Page: <span id="pageNumber">69</span></span>
+                <a id="pageNumberNext">
+                    <button class="filter-button">Next Page</button>
+                </a>
             </div>
         </div>
     </div>
@@ -298,56 +317,136 @@
             });
     </script>
     <script>
+        const queryParams = new URLSearchParams(window.location.search);
         function stripIncorrectSearches(query) {
             const articles = []
             console.log(avansDirectPages)
             avansDirectPages.forEach(element => {
-                var found = 0;
-                if (element.title?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
-                } else if (element.url?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
-                } else if (element.subtext?.toLowerCase().includes(query.toLowerCase())) {
-                    found++;
+                if (query === "") {
+                    element.relevanceScrore = 100;
+                    articles.push(element);
+                    return;
                 }
+                var maxRelevence = 0;
+                var found = 0;
+                var foundIgnored = 0;
+                query = query.trim();
+                var splittedQuery = query.match(/(?:[^\s"]+|"[^"]*")+/g);
+                splittedQuery.push(query);
+                splittedQuery.forEach(word => {
+                    var foundThisPart = false;
+                    maxRelevence += 1;
+                    var inverted = false;
+                    if (word.startsWith("!")) {
+                        inverted = true;
+                        word = word.substring(1);
+                    }
+                    if (word.startsWith('"') && word.endsWith('"')) {
+                        word = word.substring(1, word.length - 1);
+                    }
+                    if (element.title?.toLowerCase().includes(word.toLowerCase())) {
+                        foundThisPart = true;
+                        inverted ? foundIgnored += 1 : found += 1;
+                    }
+                    if (element.url?.toLowerCase().includes(word.toLowerCase())) {
+                        foundThisPart = true;
+                        inverted ? foundIgnored += 1 : found += 1;
+                    }
+                    if (element.subtext?.toLowerCase().includes(word.toLowerCase())) {
+                        foundThisPart = true;
+                        inverted ? foundIgnored += 1 : found += 1;
+                    }
+                    if (element.displayDate?.toLowerCase().includes(word.toLowerCase())) {
+                        foundThisPart = true;
+                        inverted ? foundIgnored += 1 : found += 1;
+                    }
+                    if (inverted && !foundThisPart) {
+                        found += 1;
+                    }
+                });
+                found -= foundIgnored
                 if (found > 0) {
-                    element.relevance = found;
+                    element.relevanceScrore = Math.floor(found / maxRelevence * 127);
                     articles.push(element);
                 }
             });
             return articles;
         }
 
-        function search(overwriteString) {
-            console.log('searching');
+        function search(overwriteString, page) {
+            const pageLength = 10;
+            if (page == undefined || page < 0) {
+                page = 0;
+            }
+            console.log('searching', overwriteString, page);
             const searchContainer = document.getElementById('searchContainer');
             const inputField = document.getElementById('inputField');
             const searchQueryElement = document.getElementById('searchQuery');
             const searchResultsContainer = document.getElementById('searchResultsContainer');
             const amountOfResultsElement = document.getElementById('amountOfResults');
+            const pageNumberContainer = document.getElementById('pageNumberContainer');
+            const pageNumberElement = document.getElementById('pageNumber');
+            const pageNumberPrevious = document.getElementById('pageNumberPrevious');
+            const pageNumberNext = document.getElementById('pageNumberNext');
+
             var searchQuery = inputField.value;
             if (overwriteString) {
                 searchQuery = overwriteString;
+            } else {
+                sessionStorage.setItem('AvansDirectSearch/searchQuery', searchQuery);
             }
             searchContainer.style.display = 'block';
             searchQueryElement.innerText = searchQuery;
-            console.log('searching for:', searchQuery);
-            const searchResults = stripIncorrectSearches(searchQuery);
-            console.log('search results:', searchResults);
+            var searchResults = stripIncorrectSearches(searchQuery);
+            var queryparamQuery = searchQuery;
+            queryparamQuery == '' ? queryparamQuery = ' ' : queryparamQuery;
 
             searchResultsContainer.innerHTML = '';
             amountOfResultsElement.innerText = searchResults.length;
-            searchResults.sort((a, b) => b.relevance - a.relevance);
+            searchResults.sort((a, b) => b.relevanceScrore - a.relevanceScrore);
+            if (page == 0 && searchResults.length <= pageLength) {
+                pageNumberContainer.style.display = 'none';
+            } else {
+                pageNumberContainer.style.display = 'flex';
+                pageNumberElement.innerText = page + 1;
+                if (searchResults.length > pageLength) {
+                    if (page == 0) {
+                        pageNumberPrevious.style.filter = 'grayscale(100%)';
+                        pageNumberPrevious.removeAttribute('href');
+                        pageNumberNext.style.filter = 'none';
+                        pageNumberNext.href = `?q=${queryparamQuery}&page=${page + 1}`;
+                    } else {
+                        pageNumberPrevious.style.filter = 'none';
+                        pageNumberPrevious.href = `?q=${queryparamQuery}&page=${page - 1}`;
+                        console.log(searchResults.length, ((page + 1) * pageLength) + 1);
+                        if (searchResults.length >= ((page + 1) * pageLength) + 1) {
+                            pageNumberNext.style.filter = 'none';
+                            pageNumberNext.href = `?q=${queryparamQuery}&page=${page + 1}`;
+                        } else {
+                            pageNumberNext.style.filter = 'grayscale(100%)';
+                            pageNumberNext.removeAttribute('href');
+                        }
+                    }
+
+
+
+                    searchResults = searchResults.slice(page * pageLength, page * pageLength + pageLength);
+                }
+            }
+
+
+
+
             searchResults.forEach(result => {
                 const resultCard = document.createElement('div');
                 resultCard.classList.add('result-card');
                 resultCard.innerHTML = `
-                    <a href="${result.url}" class="result-title">${result.title}</a>
+                    <a href="${result.url}" class="result-title" target="_blank">${result.title}</a>
                     <div class="result-url">${result.url}</div>
                     <div class="result-description">${result.subtext}</div>
                     <div class="result-meta">
                         <span class="source-badge">${result.external ? 'external' : 'internal'}</span>
-                        Last updated: ${result.displayDate}
+                        Last updated: ${result.displayDate} - Relevance Score: ${result.relevanceScrore}
                     </div>
                 `;
                 searchResultsContainer.appendChild(resultCard);
@@ -355,6 +454,11 @@
 
         }
         window.addEventListener('load', function () {
+            document.getElementById('saveSearchQuery').addEventListener('click', function () {
+                const inputField = document.getElementById('inputField');
+                sessionStorage.setItem('AvansDirectSearch/searchQuery', inputField.value);
+                window.location = `?q=${inputField.value}&page=0`;
+            });
             document.querySelector('.toggle-advanced').addEventListener('click', function () {
                 const advancedOptions = document.querySelector('.advanced-options');
                 const isVisible = advancedOptions.style.display !== 'none';
@@ -370,7 +474,16 @@
                 }
             });
             setTimeout(() => {
-                search("");
+                const savedQuery = sessionStorage.getItem('AvansDirectSearch/searchQuery')
+                const page = queryParams.has('page') ? parseInt(queryParams.get('page')) : 0;
+                const queryToLookup = queryParams.has('q') ? queryParams.get('q') : savedQuery;
+                console.log(queryParams.get('page'), queryParams.get('q'), queryToLookup);
+                if (queryToLookup) {
+                    search(queryToLookup, page);
+                    document.getElementById('inputField').value = queryToLookup.trim();
+                } else {
+                    search("");
+                }
             }, 1000);
         });
     </script>
