@@ -205,7 +205,7 @@
                             nameInput.style.display = 'none';
                             restartBtn.style.display = 'block';
                         } catch (error) {
-                            console.log(error, `Topic: ${topic} \nMessage: ${message}`);
+                            // console.log(error, `Topic: ${topic} \nMessage: ${message}`);
                         }
                     });
                 }
@@ -368,18 +368,19 @@
                     gameOver = true;
                     cancelAnimationFrame(animationId);
                     postMessageToMqtt({ highScores: highScores });
-                    drawGameOver();
-
+                    
                     if (checkHighScore(score)) {
                         nameInput.style.display = 'block';
                     } else {
                         restartBtn.style.display = 'block';
                     }
+                    drawGameOver();
                 }
             }
         }
 
         function draw() {
+            if (gameOver || gameIsPaused) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.beginPath();
@@ -443,10 +444,10 @@
             ctx.textAlign = 'center';
 
             const message = deathMessages[Math.floor(Math.random() * deathMessages.length)];
-            alert(message);
 
             ctx.font = '24px Courier New';
-            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+            ctx.fillText(`${message}`, canvas.width / 2, canvas.height / 2 - 40);
+            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
         }
 
         function resetGame() {
@@ -465,7 +466,7 @@
             gameOver = false;
             restartBtn.style.display = 'none';
             nameInput.style.display = 'none';
-            gameLoop();
+            requestAnimationFrame(gameLoop);
         }
 
         document.addEventListener('keydown', (e) => {
