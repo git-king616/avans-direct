@@ -240,7 +240,7 @@
         function updateHighScoresDisplay() {
             const scoresHtml = highScores
                 .sort((a, b) => b.score - a.score)
-                .slice(0, 5)
+                .slice(0, MAX_HIGHSCORES)
                 .map((score, index) => `
             <div>${score.name} - ${score.score}</div>
         `)
