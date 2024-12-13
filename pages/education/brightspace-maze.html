@@ -110,6 +110,34 @@
   <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
 </head>
 <body>
+  <style>
+    .navbar {
+        background-color: var(--avans-red) !important;
+    }
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .brightspace-link {
+        font-size: 0.9rem;
+        color: white;
+    }
+    .brightspace-link:hover {
+        color: #ddd;
+        text-decoration: underline;
+    }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Main Logo -->
+        <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect</a>
+        <a class="brightspace-link ms-auto" href="https://avansdirect.eu/pages/search">Search🔎</a>
+        <!-- Small BrightSpace Link -->
+        <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
+    </div>
+</nav>
   <div class="header">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -372,9 +400,7 @@
     drawMaze();
     updateScores();
   </script>
-  <script src="https://avansdirect.eu/components/disclaimer.js"></script>
   <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
-  <script src="https://avansdirect.eu/components/navBar.js"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
   <script>
