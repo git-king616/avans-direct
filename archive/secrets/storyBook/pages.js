@@ -149,11 +149,11 @@ const storyData = [
     },
     {
         "text": "They emerged into a desolate wasteland, the air heavy with ash and despair.",
-        "image": "A barren, ash-covered landscape with blackened trees and an ominous, swirling sky."
+        "image": "https://i.imgur.com/89Emv3T.png"
     },
     {
         "text": "A towering shadow loomed in the distance, its form constantly shifting and writhing.",
-        "image": "A massive shadowy figure on the horizon, its body writhing with smoky tendrils under a dark red sky."
+        "image": "https://i.imgur.com/UXkDd8S.png"
     },
     {
         "text": "The voice in Elara's mind whispered, 'This is the Shadow Core. Destroy it to end the chaos.'",
@@ -161,7 +161,7 @@ const storyData = [
     },
     {
         "text": "Elara and the stag pressed forward, the ground cracking beneath their feet.",
-        "image": "A girl and a glowing stag walking across a crumbling, ashen plain toward a shadowy colossus."
+        "image": "https://i.imgur.com/7omjl6s.png"
     },
     {
         "text": "The Heart within her began to glow brighter, resonating with the Shadow Core's energy.",
@@ -169,7 +169,7 @@ const storyData = [
     },
     {
         "text": "They were ambushed by monstrous creatures, far larger and more terrifying than before.",
-        "image": "Gigantic shadow creatures with jagged limbs and glowing red eyes attacking a girl and a glowing stag."
+        "image": "https://i.imgur.com/nKsXCV9.png"
     },
     {
         "text": "The stag fought valiantly, its antlers a flurry of light, but even it began to falter.",
@@ -177,11 +177,11 @@ const storyData = [
     },
     {
         "text": "Elara unleashed the Heart's light, scattering the beasts, but it drained her energy.",
-        "image": "A girl glowing with radiant energy, her body trembling as shadow creatures disintegrate around her."
+        "image": "https://i.imgur.com/MRo4Uiv.png"
     },
     {
         "text": "As they approached the Shadow Core, its immense power began pulling Elara toward it.",
-        "image": "A girl being dragged toward a massive swirling shadow vortex, her hands gripping the ground in desperation."
+        "image": "https://i.imgur.com/qvMLEHg.png"
     },
     {
         "text": "She screamed as the stag leapt into the vortex, its light slicing through the darkness.",
@@ -189,7 +189,7 @@ const storyData = [
     },
     {
         "text": "For a moment, the vortex weakened, and Elara saw a glimmer of hope.",
-        "image": "A swirling vortex with a faint golden light emerging from its core, as a girl looks on with hope."
+        "image": "https://i.imgur.com/5kB5Pp7.png"
     },
     {
         "text": "But then the stag's light was extinguished, and the vortex grew larger and more chaotic.",
@@ -201,7 +201,7 @@ const storyData = [
     },
     {
         "text": "She whispered, 'I can't do this,' as the ground crumbled beneath her.",
-        "image": "A girl kneeling on crumbling ground, her head bowed in despair, surrounded by swirling darkness."
+        "image": "https://i.imgur.com/QkUqk6H.png"
     },
     {
         "text": "The Shadow Core loomed over her, its tendrils reaching out to consume her.",
@@ -209,34 +209,34 @@ const storyData = [
     },
     {
         "text": "As the tendrils wrapped around her, the Heart flared brightly, burning them away.",
-        "image": "A girl surrounded by radiant light, as shadowy tendrils disintegrate in the glow."
+        "image": "https://i.imgur.com/lzgNtpn.png"
     },
     {
         "text": "A voice boomed in her mind, 'Rise, Guardian. You are the light in the dark.'",
-        "image": "A girl standing tall, her chest glowing brightly as an ethereal light surrounds her."
+        "image": "https://i.imgur.com/WoKwj4w.png"
     },
     {
         "text": "Summoning every ounce of strength, Elara hurled the Heart's energy at the Core.",
-        "image": "A girl unleashing a massive beam of light from her chest, aimed at a swirling shadow vortex."
+        "image": "https://i.imgur.com/5aZUrrj.png"
     },
     {
         "text": "The Core exploded in a blinding burst of light, the shadows vanishing instantly.",
-        "image": "A massive explosion of light, scattering the darkness and leaving a tranquil sky."
+        "image": "https://i.imgur.com/1tIzwFq.png"
     },
     {
         "text": "Elara collapsed, the stag reappearing beside her, now glowing more brilliantly than ever.",
-        "image": "A glowing stag standing protectively over a girl lying motionless, as light fills the scene."
+        "image": "https://i.imgur.com/xZQYjVY.png"
     },
     {
         "text": "She opened her eyes, the world around her vibrant and alive once more.",
-        "image": "A lush, green forest with glowing flowers, as a girl lies on the ground, her eyes slowly opening."
+        "image": "https://i.imgur.com/xZj3Fbs.png"
     },
     {
         "text": "The stag spoke softly, 'You have saved us all, Guardian of the Heart.'",
-        "image": "A majestic stag bowing its head to a girl, who kneels in a radiant forest clearing."
+        "image": "https://i.imgur.com/sxqfgyK.png"
     },
     {
         "text": "Elara smiled, her journey complete, as the light of the Heart continued to glow within her.",
-        "image": "A girl standing tall, her chest faintly glowing, as she looks out over a serene and vibrant world."
+        "image": "https://i.imgur.com/M8IGPLh.png"
     }
 ]
