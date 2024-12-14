@@ -157,7 +157,7 @@ const storyData = [
     },
     {
         "text": "The voice in Elara's mind whispered, 'This is the Shadow Core. Destroy it to end the chaos.'",
-        "image": "A girl standing resolute in a wasteland, facing a distant, massive shadowy structure."
+        "image": "https://i.imgur.com/9gHL8TM.png"
     },
     {
         "text": "Elara and the stag pressed forward, the ground cracking beneath their feet.",
@@ -173,7 +173,7 @@ const storyData = [
     },
     {
         "text": "The stag fought valiantly, its antlers a flurry of light, but even it began to falter.",
-        "image": "A silver stag surrounded by monstrous shadows, its antlers glowing as it battles tirelessly."
+        "image": "https://i.imgur.com/uNsxEzG.png"
     },
     {
         "text": "Elara unleashed the Heart's light, scattering the beasts, but it drained her energy.",
@@ -185,7 +185,7 @@ const storyData = [
     },
     {
         "text": "She screamed as the stag leapt into the vortex, its light slicing through the darkness.",
-        "image": "A glowing stag diving into a massive shadow vortex, streams of light cutting through the dark."
+        "image": "https://i.imgur.com/koXSBvo.png"
     },
     {
         "text": "For a moment, the vortex weakened, and Elara saw a glimmer of hope.",
@@ -193,7 +193,7 @@ const storyData = [
     },
     {
         "text": "But then the stag's light was extinguished, and the vortex grew larger and more chaotic.",
-        "image": "A massive shadow vortex expanding wildly, with no trace of the stag's glowing light remaining."
+        "image": "https://i.imgur.com/4DT7t2c.png"
     },
     {
         "text": "Elara fell to her knees, the Heart's light within her nearly extinguished.",
@@ -205,7 +205,7 @@ const storyData = [
     },
     {
         "text": "The Shadow Core loomed over her, its tendrils reaching out to consume her.",
-        "image": "A massive shadowy vortex with smoky tendrils stretching toward a kneeling girl."
+        "image": "https://i.imgur.com/zziZLLh.png"
     },
     {
         "text": "As the tendrils wrapped around her, the Heart flared brightly, burning them away.",
