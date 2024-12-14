@@ -300,7 +300,6 @@
             acceleration: 0.2
         };
 
-
         let score = 0;
         let lives = 3;
         let gameOver = false;
@@ -328,8 +327,8 @@
 
             gameTime += timeStep;
 
-            if (gameTime >= 2.5) {  // Increase speed every 2.5 seconds
-                obstacle.speed += obstacle.acceleration * timeStep;
+            if (gameTime >= 10) {  // Increase speed every 2.5 seconds
+                obstacle.speed += obstacle.acceleration + (obstacle.speed / 100);
                 gameTime = 0;
             }
 
@@ -381,7 +380,7 @@
         }
 
         function draw() {
-            if (gameOver || gameIsPaused) return;
+            if (gameOver) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.beginPath();
