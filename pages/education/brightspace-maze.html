@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    :root {
+      --avans-red: #C6002E;
+      --avans-red-dark: #b31815;
+      --avans-gray: #4A4A4A;
+      --avans-light-gray: #f5f5f5;
+    }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: var(--avans-red);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .game-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      width: 95%;
+    }
+    canvas {
+      border: 3px solid var(--avans-red);
+      background: white;
+      margin-bottom: 15px;
+      width: 100%;
+      height: auto;
+    }
+    .instructions {
+      margin: 10px 0;
+      color: var(--avans-gray);
+      text-align: center;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: var(--avans-red);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      margin: 10px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: var(--avans-red-dark);
+    }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .score-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin: 10px 0;
+      background-color: var(--avans-light-gray);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .score {
+      font-size: 16px;
+      color: var(--avans-red);
+      font-weight: bold;
+    }
+    .message-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: none;
+      text-align: center;
+      z-index: 100;
+    }
+    .level-complete {
+      color: var(--avans-red);
+      font-size: 20px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    #scoreMessage {
+      color: var(--avans-gray);
+    }
+  </style>
+  <title>Brightspace Maze - AvansDirect</title>
+  <link rel="icon" type="image/x-icon" href="https://avansdirect.eu/assets/icon.png">
+  <meta name="description"
+      content="Learn to find your Brightspace assignments 📚">
+  <meta property="og:description"
+      content="Learn to find your Brightspace assignments 📚">
+  <meta property="og:image" content="https://avansdirect.eu/assets/icon.png">
+</head>
+<body>
+  <style>
+    .navbar {
+        background-color: var(--avans-red) !important;
+    }
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .brightspace-link {
+        font-size: 0.9rem;
+        color: white;
+    }
+    .brightspace-link:hover {
+        color: #ddd;
+        text-decoration: underline;
+    }
+</style>
+
+
+  <div class="header">
+    Avans Assignment Maze
+  </div>
+  
+  <div class="game-container">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container d-flex justify-content-between align-items-center">
+      <!-- Main Logo -->
+      <a class="navbar-brand" href="https://avansdirect.eu">AvansDirect</a>
+      <a class="brightspace-link ms-auto" href="https://avansdirect.eu/pages/search">Search🔎</a>
+      <!-- Small BrightSpace Link -->
+      <a class="brightspace-link ms-auto" href="https://avansdirect.eu/assets/brightspace.jpg">BrightSpace (OurBeloved)</a>
+  </div>
+</nav>
+    <canvas id="mazeCanvas" width="600" height="600"></canvas>
+    <div class="score-container">
+      <span class="score">Current Score: <span id="currentScore">0</span></span>
+      <span class="score">High Score: <span id="highScore">0</span></span>
+    </div>
+    <div style="text-align: center">
+      <button onclick="resetGame()">New Assignment Search</button>
+    </div>
+    <div class="instructions">Navigate through Brightspace to find your assignment! Less clicks = higher score!</div>
+  </div>
+
+  <div class="message-overlay" id="messageOverlay">
+    <div class="level-complete">Assignment Found! 📚</div>
+    <div id="scoreMessage"></div>
+    <button onclick="hideMessage()">Continue Search</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('mazeCanvas');
+    const ctx = canvas.getContext('2d');
+    const cellSize = 30;
+    const gridSize = 20;
+    const AVANS_RED = '#E31D1A';
+    
+    let playerX = 1;
+    let playerY = 1;
+    let goalX, goalY;
+    let currentScore = 0;
+    let highScore = localStorage.getItem('AvansDirect/findYourHomeworkOnBrightspace/HighScores') || 0;
+    highScore = parseInt(highScore);
+    let moveCount = 0;
+    const maze = Array(gridSize).fill().map(() => Array(gridSize).fill(1));
+
+    function showMessage(score, totalScore) {
+      const overlay = document.getElementById('messageOverlay');
+      const scoreMessage = document.getElementById('scoreMessage');
+      scoreMessage.innerHTML = `
+        <p>Efficiency Score: ${score} points</p>
+        <p>Total Score: ${totalScore}</p>
+        ${totalScore > highScore ? '<p style="color: #E31D1A">New High Score! 🎉</p>' : ''}
+      `;
+      overlay.style.display = 'block';
+    }
+
+    function hideMessage() {
+      document.getElementById('messageOverlay').style.display = 'none';
+      resetGame();
+    }
+
+    function updateScores() {
+      document.getElementById('currentScore').textContent = currentScore;
+      document.getElementById('highScore').textContent = highScore;
+    }
+
+    function calculateScore() {
+      const baseScore = 1000;
+      const penalty = moveCount * 5;
+      return Math.max(100, baseScore - penalty);
+    }
+
+    function getNeighbors(x, y) {
+      const neighbors = [];
+      const directions = [
+        [0, -2], [2, 0], [0, 2], [-2, 0]
+      ];
+      
+      for (const [dx, dy] of directions) {
+        const newX = x + dx;
+        const newY = y + dy;
+        
+        if (newX > 0 && newX < gridSize - 1 && newY > 0 && newY < gridSize - 1) {
+          if (maze[newX][newY] === 1) {
+            neighbors.push([newX, newY, x + dx/2, y + dy/2]);
+          }
+        }
+      }
+      
+      return neighbors;
+    }
+
+    function generateMaze() {
+      for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+          maze[i][j] = 1;
+        }
+      }
+
+      const frontier = [];
+      const startX = 1;
+      const startY = 1;
+      maze[startX][startY] = 0;
+      
+      frontier.push(...getNeighbors(startX, startY));
+      
+      while (frontier.length > 0) {
+        const index = Math.floor(Math.random() * frontier.length);
+        const [x, y, pathX, pathY] = frontier[index];
+        frontier.splice(index, 1);
+        
+        if (maze[x][y] === 1) {
+          maze[x][y] = 0;
+          maze[pathX][pathY] = 0;
+          frontier.push(...getNeighbors(x, y));
+        }
+      }
+
+      maze[1][1] = 0;
+      
+      return findFarthestPoint();
+    }
+
+    function findFarthestPoint() {
+      let maxDistance = 0;
+      let farthestX = gridSize - 2;
+      let farthestY = gridSize - 2;
+      
+      const distances = Array(gridSize).fill().map(() => Array(gridSize).fill(-1));
+      const queue = [[1, 1]];
+      distances[1][1] = 0;
+      
+      while (queue.length > 0) {
+        const [x, y] = queue.shift();
+        const currentDist = distances[x][y];
+        
+        const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+        for (const [dx, dy] of dirs) {
+          const newX = x + dx;
+          const newY = y + dy;
+          
+          if (newX > 0 && newX < gridSize - 1 && 
+              newY > 0 && newY < gridSize - 1 && 
+              maze[newX][newY] === 0 && 
+              distances[newX][newY] === -1) {
+            distances[newX][newY] = currentDist + 1;
+            queue.push([newX, newY]);
+            
+            if (currentDist + 1 > maxDistance) {
+              maxDistance = currentDist + 1;
+              farthestX = newX;
+              farthestY = newY;
+            }
+          }
+        }
+      }
+      
+      return [farthestX, farthestY];
+    }
+    
+    function drawMaze() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw maze walls
+      for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+          if (maze[i][j] === 1) {
+            ctx.fillStyle = AVANS_RED;
+            ctx.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
+          }
+        }
+      }
+      
+      // Draw goal (assignment icon)
+      ctx.fillStyle = '#4A4A4A';
+      const goalSize = cellSize * 0.8;
+      const goalPadding = (cellSize - goalSize) / 2;
+      ctx.fillRect(
+        goalX * cellSize + goalPadding,
+        goalY * cellSize + goalPadding,
+        goalSize,
+        goalSize
+      );
+      
+      // Draw player (cursor/student icon)
+      ctx.fillStyle = AVANS_RED;
+      const playerSize = cellSize * 0.6;
+      ctx.beginPath();
+      ctx.arc(
+        playerX * cellSize + cellSize/2,
+        playerY * cellSize + cellSize/2,
+        playerSize/2,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+    }
+    
+    function checkWin() {
+      if (playerX === goalX && playerY === goalY) {
+        const score = calculateScore();
+        currentScore += score;
+        if (currentScore > highScore) {
+          highScore = currentScore;
+          localStorage.setItem('AvansDirect/findYourHomeworkOnBrightspace/HighScores', highScore);
+        }
+        updateScores();
+        showMessage(score, currentScore);
+      }
+    }
+    
+    function initializeMaze() {
+      [goalX, goalY] = generateMaze();
+      playerX = 1;
+      playerY = 1;
+      moveCount = 0;
+    }
+    
+    function resetGame() {
+      initializeMaze();
+      drawMaze();
+      updateScores();
+    }
+    
+    document.addEventListener('keydown', (e) => {
+      let newX = playerX;
+      let newY = playerY;
+      
+      switch (e.key) {
+        case 'ArrowUp':
+          newY--;
+          break;
+        case 'ArrowDown':
+          newY++;
+          break;
+        case 'ArrowLeft':
+          newX--;
+          break;
+        case 'ArrowRight':
+          newX++;
+          break;
+        default:
+          return;
+      }
+      
+      if (
+        newX >= 0 && newX < gridSize &&
+        newY >= 0 && newY < gridSize &&
+        maze[newX][newY] !== 1
+      ) {
+        playerX = newX;
+        playerY = newY;
+        moveCount++;
+        drawMaze();
+        checkWin();
+      }
+      
+      e.preventDefault();
+    });
+    
+    // Initialize game
+    initializeMaze();
+    drawMaze();
+    updateScores();
+  </script>
+  <script src="https://avansdirect.eu/components/statsGatherer.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9P58S1LKK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-C9P58S1LKK');
+  </script>
+</body>
+</html>
