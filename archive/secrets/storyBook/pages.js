@@ -1,4 +1,4 @@
-const storyData = [
+const storyPages = [
     {
         "text": "A lone lantern flickered in the misty forest, casting eerie shadows on the trees.",
         "image": "https://i.imgur.com/ZIVWpRi.png"
