@@ -165,7 +165,7 @@ const storyData = [
     },
     {
         "text": "The Heart within her began to glow brighter, resonating with the Shadow Core's energy.",
-        "image": "A girl with a glowing chest, radiating blue light, as a dark vortex looms in the distance."
+        "image": "https://i.imgur.com/Il5MGJK.png"
     },
     {
         "text": "They were ambushed by monstrous creatures, far larger and more terrifying than before.",
@@ -197,7 +197,7 @@ const storyData = [
     },
     {
         "text": "Elara fell to her knees, the Heart's light within her nearly extinguished.",
-        "image": "A girl kneeling on the ground, her chest faintly glowing as darkness surrounds her."
+        "image": "https://i.imgur.com/z6uRY04.png"
     },
     {
         "text": "She whispered, 'I can't do this,' as the ground crumbled beneath her.",
