@@ -85,67 +85,67 @@ const storyData = [
     },
     {
         "text": "Elara clutched the orb tighter, its glow flickering like a dying flame.",
-        "image": "A girl holding a flickering blue orb, her expression a mix of fear and determination."
+        "image": "https://i.imgur.com/FEJ6bum.png"
     },
     {
         "text": "The stag roared, 'Restore balance! Use the Heart's power to seal the breach!'",
-        "image": "A glowing stag with antlers blazing, its body emanating powerful energy as it faces a shadow."
+        "image": "https://i.imgur.com/p2kmjfv.png"
     },
     {
         "text": "From the shadows, monstrous creatures emerged, their forms twisted and dripping with darkness.",
-        "image": "Horrific shadow monsters crawling from cracks in the ground, their glowing red eyes piercing the darkness."
+        "image": "https://i.imgur.com/xioYrW3.png"
     },
     {
         "text": "Elara raised the orb, its light casting the creatures into retreat, but they kept coming.",
-        "image": "A girl holding a glowing orb high, its light pushing back swarming shadow creatures."
+        "image": "https://i.imgur.com/pxkjJfQ.png"
     },
     {
         "text": "The stag charged, goring a shadow beast, but more replaced it instantly.",
-        "image": "A silver stag impaling a shadow creature with glowing antlers, surrounded by swirling darkness."
+        "image": "https://i.imgur.com/wKPrY7T.png"
     },
     {
         "text": "The ruins began to collapse as the sky turned blood red, cracks splitting the earth.",
-        "image": "A crumbling ancient ruin, the sky glowing red and the earth splitting with fire and shadows."
+        "image": "https://i.imgur.com/vAJJ5KQ.png"
     },
     {
         "text": "Elara cried out, 'Tell me how to save it!' as the orb burned in her hands.",
-        "image": "A girl holding a blazing orb, her face illuminated by its fiery glow as she screams into the chaos."
+        "image": "https://i.imgur.com/1pVaCvl.png"
     },
     {
         "text": "The stag answered, 'You must bind your soul to the Heart to repair the world.'",
-        "image": "A glowing stag staring solemnly at a girl, its antlers shimmering as chaos unfolds around them."
+        "image": "https://i.imgur.com/NmJLdDM.png"
     },
     {
         "text": "Elara hesitated, tears streaming down her face as the orb's light began to fade.",
-        "image": "A girl kneeling with a dimming orb in her hands, tears reflecting the faint blue light."
+        "image": "https://i.imgur.com/vJUYKWM.png"
     },
     {
         "text": "With a final scream, she thrust the orb into her chest, merging its light with her own.",
-        "image": "A girl absorbing a glowing orb into her chest, radiant light exploding outward as darkness surrounds her."
+        "image": "https://i.imgur.com/CuOpR8b.png"
     },
     {
         "text": "The ground stilled and the shadows evaporated, leaving behind silence and an empty ruin.",
-        "image": "A tranquil, crumbled ruin bathed in soft sunlight, with no trace of shadows or chaos remaining."
+        "image": "https://i.imgur.com/hyRrUq1.png"
     },
     {
         "text": "The stag knelt beside Elara's motionless form, its antlers dimmed to a soft glow.",
-        "image": "A silver stag resting beside a girl lying motionless, the forest quiet and peaceful once more."
+        "image": "https://i.imgur.com/1zI6NMx.png"
     },
     {
         "text": "Her eyes fluttered open, now glowing faintly, as she whispered, 'The Heart lives in me now.'",
-        "image": "A girl with faintly glowing eyes lying in a ruin, a silver stag standing protectively over her."
+        "image": "https://i.imgur.com/ZL5rKoG.png"
     },
     {
         "text": "Yet the peace was short-lived. The cracks in the ground began to tremble once more.",
-        "image": "A peaceful forest ground suddenly trembling, faint red light emanating from deep cracks in the earth."
+        "image": "https://i.imgur.com/bjQuXnW.png"
     },
     {
         "text": "Elara stood, her legs unsteady, as a voice whispered in her mind: 'The final test awaits.'",
-        "image": "A girl standing unsteadily amidst ruins, her eyes glowing faintly as if hearing a mysterious voice."
+        "image": "https://i.imgur.com/HE1Oa8l.png"
     },
     {
         "text": "A portal formed in the air, swirling with crimson and gold, pulling the stag and Elara through.",
-        "image": "A swirling portal glowing with crimson and gold energy, with a girl and a stag being pulled into its vortex."
+        "image": "https://i.imgur.com/UWtP3Ik.png"
     },
     {
         "text": "They emerged into a desolate wasteland, the air heavy with ash and despair.",
