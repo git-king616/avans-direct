@@ -173,6 +173,7 @@
         const restartBtn = document.getElementById('restartBtn');
         const nameInput = document.getElementById('nameInput');
         const highScoresDiv = document.getElementById('highScores');
+        const MAX_HIGHSCORES = 10;
 
         var userUUID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         if (localStorage.getItem('AvansDirect/avoidBrightspace/userUUID')) {
@@ -199,13 +200,13 @@
                                 }
                             });
                             highScores.sort((a, b) => b.score - a.score);
-                            highScores = highScores.slice(0, 5);
+                            highScores = highScores.slice(0, MAX_HIGHSCORES);
                             localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
                             updateHighScoresDisplay();
                             nameInput.style.display = 'none';
                             restartBtn.style.display = 'block';
                         } catch (error) {
-                            console.log(error, `Topic: ${topic} \nMessage: ${message}`);
+                            // console.log(error, `Topic: ${topic} \nMessage: ${message}`);
                         }
                     });
                 }
@@ -239,7 +240,7 @@
         function updateHighScoresDisplay() {
             const scoresHtml = highScores
                 .sort((a, b) => b.score - a.score)
-                .slice(0, 5)
+                .slice(0, MAX_HIGHSCORES)
                 .map((score, index) => `
             <div>${score.name} - ${score.score}</div>
         `)
@@ -253,7 +254,7 @@
 
         function checkHighScore(score) {
             const lowestScore = Math.min(...highScores.map(x => x.score));
-            return score > lowestScore || highScores.length < 5;
+            return score > lowestScore || highScores.length < MAX_HIGHSCORES;
         }
 
         function submitHighScore() {
@@ -261,7 +262,7 @@
             if (playerName) {
                 highScores.push({ name: playerName, score: score, identifier: `${userUUID}${Date.now()}` });
                 highScores.sort((a, b) => b.score - a.score);
-                highScores = highScores.slice(0, 5);
+                highScores = highScores.slice(0, MAX_HIGHSCORES);
                 localStorage.setItem('AvansDirect/avoidBrightspace/HighScores', JSON.stringify(highScores));
                 updateHighScoresDisplay();
                 nameInput.style.display = 'none';
@@ -299,7 +300,6 @@
             acceleration: 0.2
         };
 
-
         let score = 0;
         let lives = 3;
         let gameOver = false;
@@ -327,8 +327,8 @@
 
             gameTime += timeStep;
 
-            if (gameTime >= 2.5) {  // Increase speed every 2.5 seconds
-                obstacle.speed += obstacle.acceleration * timeStep;
+            if (gameTime >= 10) {  // Increase speed every 2.5 seconds
+                obstacle.speed += obstacle.acceleration + (obstacle.speed / 100);
                 gameTime = 0;
             }
 
@@ -368,18 +368,19 @@
                     gameOver = true;
                     cancelAnimationFrame(animationId);
                     postMessageToMqtt({ highScores: highScores });
-                    drawGameOver();
-
+                    
                     if (checkHighScore(score)) {
                         nameInput.style.display = 'block';
                     } else {
                         restartBtn.style.display = 'block';
                     }
+                    drawGameOver();
                 }
             }
         }
 
         function draw() {
+            if (gameOver) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.beginPath();
@@ -443,10 +444,10 @@
             ctx.textAlign = 'center';
 
             const message = deathMessages[Math.floor(Math.random() * deathMessages.length)];
-            alert(message);
 
             ctx.font = '24px Courier New';
-            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+            ctx.fillText(`${message}`, canvas.width / 2, canvas.height / 2 - 40);
+            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 40);
         }
 
         function resetGame() {
@@ -465,7 +466,7 @@
             gameOver = false;
             restartBtn.style.display = 'none';
             nameInput.style.display = 'none';
-            gameLoop();
+            requestAnimationFrame(gameLoop);
         }
 
         document.addEventListener('keydown', (e) => {
