@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Modeller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        header img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        #editor-container {
+            display: flex;
+            flex: 1;
+        }
+
+        #toolbox {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+
+        #toolbox button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        #toolbox button:hover {
+            background-color: #0056b3;
+        }
+
+        #canvas {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="<GITHUBREPO>/assets/avans.png" alt="Avans Logo">
+        <h1>Simple 3D Model Editor</h1>
+    </header>
+    <div id="editor-container">
+        <div id="toolbox">
+            <button id="sketch">Create Sketch</button>
+            <button id="extrude">Extrude</button>
+            <button id="revolve">Revolve</button>
+        </div>
+        <div id="canvas">
+            <canvas id="3d-canvas" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script>
+        const canvas = document.getElementById('3d-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas });
+        renderer.setSize(canvas.width, canvas.height);
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xe0e0e0);
+
+        const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+        camera.position.z = 5;
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(10, 10, 10).normalize();
+        scene.add(light);
+
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshLambertMaterial({ color: 0x007BFF });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        const controls = {
+            sketch: false,
+            extrude: false,
+            revolve: false
+        };
+
+        document.getElementById('sketch').addEventListener('click', () => {
+            alert('Sketch mode activated!');
+            controls.sketch = true;
+        });
+
+        document.getElementById('extrude').addEventListener('click', () => {
+            alert('Extrude feature not implemented yet.');
+            controls.extrude = true;
+        });
+
+        document.getElementById('revolve').addEventListener('click', () => {
+            alert('Revolve feature not implemented yet.');
+            controls.revolve = true;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
