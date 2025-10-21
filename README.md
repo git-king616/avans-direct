@@ -1,4 +1,5 @@
-# avans-direct
+# Avans Direct
 .-.
 
-https://tinyurl.com/2rs4wdw5
+https://avansisgay.be/
+https://avansdirect.eu/

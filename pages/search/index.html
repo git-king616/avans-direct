@@ -332,6 +332,9 @@
                 var foundIgnored = 0;
                 query = query.trim();
                 var splittedQuery = query.match(/(?:[^\s"]+|"[^"]*")+/g);
+                if (splittedQuery == null) {
+                    splittedQuery = [];
+                }
                 splittedQuery.push(query);
                 splittedQuery.forEach(word => {
                     var foundThisPart = false;
